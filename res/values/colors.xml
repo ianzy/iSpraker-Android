@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="title_background">#ff707070</color>
+    <color name="title_text">#ffffffff</color>
+    <color name="title_text_alt">#ff000000</color>
+    <color name="foreground1">#ff707070</color>
+    <color name="foreground2">#ff7081a3</color>
+    <color name="background1">#ffE8E8E8</color>
+    <color name="background2">#ffE8E8E8</color>
+    <color name="background3">#ffE8E8E8</color>
+    <color name="title_separator">#40ffffff</color>
+
+    <color name="session_foreground_past">#ff999999</color>
+
+    <color name="pinned_header_background">#ff202020</color>
+    
+    <color name="followup_response">#ffffffff</color>
+</resources>

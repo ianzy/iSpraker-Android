@@ -9,15 +9,620 @@ package com.iSpraker.android;
 
 public final class R {
     public static final class attr {
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int actionbarCompatButtonStyle=0x7f010000;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int actionbarCompatLogoStyle=0x7f010003;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int actionbarCompatProgressIndicatorStyle=0x7f010001;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int actionbarCompatSeparatorStyle=0x7f010002;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int actionbarCompatTextStyle=0x7f010004;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int borderDrawable=0x7f010012;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int columns=0x7f010007;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int dividerColor=0x7f01000e;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int endHour=0x7f010010;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int headerWidth=0x7f010008;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int horizontalDivider=0x7f01000a;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int hourHeight=0x7f010009;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int labelColor=0x7f01000d;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int labelPaddingLeft=0x7f01000c;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int labelTextSize=0x7f01000b;
+        /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int maskDrawable=0x7f010011;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int startHour=0x7f01000f;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int textHeaderMaxLines=0x7f010005;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int trackAbstractMaxLines=0x7f010006;
+    }
+    public static final class color {
+        public static final int background1=0x7f040005;
+        public static final int background2=0x7f040006;
+        public static final int background3=0x7f040007;
+        public static final int followup_response=0x7f04000b;
+        public static final int foreground1=0x7f040003;
+        public static final int foreground2=0x7f040004;
+        public static final int pinned_header_background=0x7f04000a;
+        public static final int session_foreground_past=0x7f040009;
+        public static final int title_background=0x7f040000;
+        public static final int title_separator=0x7f040008;
+        public static final int title_text=0x7f040001;
+        public static final int title_text_alt=0x7f040002;
+    }
+    public static final class dimen {
+        public static final int colorstrip_height=0x7f050000;
+        public static final int now_playing_height=0x7f050002;
+        public static final int text_size_large=0x7f050005;
+        public static final int text_size_medium=0x7f050004;
+        public static final int text_size_small=0x7f050003;
+        public static final int title_height=0x7f050001;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int actionbar_compat_background=0x7f020000;
+        public static final int back_button=0x7f020001;
+        public static final int back_button_dark=0x7f020002;
+        public static final int back_button_light=0x7f020003;
+        public static final int background_effects=0x7f020004;
+        public static final int background_noise=0x7f020005;
+        public static final int background_noise_tile=0x7f020006;
+        public static final int btn=0x7f020007;
+        public static final int btn_bg_pressed=0x7f020008;
+        public static final int btn_bg_selected=0x7f020009;
+        public static final int btn_black9=0x7f02000a;
+        public static final int btn_default=0x7f02000b;
+        public static final int btn_focused=0x7f02000c;
+        public static final int btn_pressed=0x7f02000d;
+        public static final int ic_launcher=0x7f02000e;
+        public static final int ic_menu_add=0x7f02000f;
+        public static final int ic_menu_camera=0x7f020010;
+        public static final int ic_menu_info_details=0x7f020011;
+        public static final int ic_menu_mapmode=0x7f020012;
+        public static final int ic_menu_preferences=0x7f020013;
+        public static final int ic_menu_rotate=0x7f020014;
+        public static final int ic_menu_search=0x7f020015;
+        public static final int ic_title_back_dark=0x7f020016;
+        public static final int ic_title_back_default=0x7f020017;
+        public static final int ic_title_export=0x7f020018;
+        public static final int ic_title_export_alt=0x7f020019;
+        public static final int ic_title_export_default=0x7f02001a;
+        public static final int ic_title_export_light=0x7f02001b;
+        public static final int ic_title_home=0x7f02001c;
+        public static final int ic_title_home_alt=0x7f02001d;
+        public static final int ic_title_home_default=0x7f02001e;
+        public static final int ic_title_home_light=0x7f02001f;
+        public static final int ic_title_map=0x7f020020;
+        public static final int ic_title_refresh=0x7f020021;
+        public static final int ic_title_refresh_alt=0x7f020022;
+        public static final int ic_title_refresh_default=0x7f020023;
+        public static final int ic_title_refresh_light=0x7f020024;
+        public static final int ic_title_search=0x7f020025;
+        public static final int ic_title_search_alt=0x7f020026;
+        public static final int ic_title_search_default=0x7f020027;
+        public static final int ic_title_search_light=0x7f020028;
+        public static final int ic_title_share=0x7f020029;
+        public static final int ic_title_today=0x7f02002a;
+        public static final int icon=0x7f02002b;
+        public static final int sandbox_logo_empty=0x7f02002c;
+        public static final int speaker_image_empty=0x7f02002d;
+        public static final int title_button=0x7f02002e;
+        public static final int whats_on_background=0x7f02002f;
+        public static final int whats_on_button=0x7f020030;
+        public static final int whats_on_button_default=0x7f020031;
+        public static final int whats_on_button_pressed=0x7f020032;
+        public static final int whats_on_separator=0x7f020033;
+        public static final int window_background=0x7f020034;
+        public static final int window_background_home=0x7f020035;
+    }
+    public static final class id {
+        public static final int actionbar_compat=0x7f060000;
+        public static final int actionbar_compat_container=0x7f060001;
+        public static final int actionbar_compat_logo=0x7f060002;
+        public static final int actionbar_compat_text=0x7f060003;
+        public static final int blocks_now=0x7f06000c;
+        public static final int blocks_ruler=0x7f06000b;
+        public static final int description=0x7f060010;
+        public static final int dialog_discard_confirm=0x7f060009;
+        public static final int dialog_moderator=0x7f06000a;
+        public static final int email=0x7f06000f;
+        public static final int fragment_session_detail=0x7f060005;
+        public static final int fragment_sessions=0x7f060004;
+        public static final int fragment_vendor_detail=0x7f060007;
+        public static final int fragment_vendors=0x7f060006;
+        public static final int menu_export=0x7f060013;
+        public static final int menu_map=0x7f060014;
+        public static final int menu_now=0x7f060016;
+        public static final int menu_refresh=0x7f060015;
+        public static final int menu_refresh_progress=0x7f060008;
+        public static final int menu_search=0x7f060012;
+        public static final int menu_share=0x7f060017;
+        public static final int name=0x7f06000e;
+        public static final int profile_image=0x7f06000d;
+        public static final int textView1=0x7f060011;
+    }
+    public static final class integer {
+        public static final int text_header_max_lines=0x7f070000;
+        public static final int track_abstract_max_lines=0x7f070001;
     }
     public static final class layout {
-        public static final int main=0x7f030000;
+        public static final int activity_title_bar=0x7f030000;
+        public static final int main=0x7f030001;
+        public static final int people_list_item=0x7f030002;
+        public static final int people_tab=0x7f030003;
+    }
+    public static final class menu {
+        public static final int default_menu_items=0x7f0a0000;
+        public static final int export_menu_items=0x7f0a0001;
+        public static final int map_menu_items=0x7f0a0002;
+        public static final int refresh_menu_items=0x7f0a0003;
+        public static final int schedule_menu_items=0x7f0a0004;
+        public static final int session_detail_menu_items=0x7f0a0005;
     }
     public static final class string {
-        public static final int app_name=0x7f040001;
-        public static final int hello=0x7f040000;
+        public static final int app_name=0x7f080001;
+        public static final int description_export=0x7f080007;
+        public static final int description_home=0x7f080002;
+        public static final int description_map=0x7f080004;
+        public static final int description_now=0x7f080009;
+        public static final int description_refresh=0x7f080005;
+        public static final int description_search=0x7f080003;
+        public static final int description_share=0x7f080006;
+        public static final int description_star=0x7f080008;
+        public static final int hello=0x7f080000;
     }
+    public static final class style {
+        public static final int CategorizedResponse=0x7f090005;
+        /** <item name="android:background">@drawable/btn_black9</item>
+    
+         */
+        public static final int LabelIndicator=0x7f090006;
+        public static final int TitleBar=0x7f090000;
+        public static final int TitleBarAction=0x7f090001;
+        public static final int TitleBarProgressIndicator=0x7f090002;
+        public static final int TitleBarSeparator=0x7f090003;
+        public static final int TitleBarText=0x7f090004;
+    }
+    public static final class styleable {
+        /** Attributes that can be used with a AppTheme.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #AppTheme_actionbarCompatButtonStyle com.iSpraker.android:actionbarCompatButtonStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #AppTheme_actionbarCompatLogoStyle com.iSpraker.android:actionbarCompatLogoStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #AppTheme_actionbarCompatProgressIndicatorStyle com.iSpraker.android:actionbarCompatProgressIndicatorStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #AppTheme_actionbarCompatSeparatorStyle com.iSpraker.android:actionbarCompatSeparatorStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #AppTheme_actionbarCompatTextStyle com.iSpraker.android:actionbarCompatTextStyle}</code></td><td></td></tr>
+           <tr><td><code>{@link #AppTheme_textHeaderMaxLines com.iSpraker.android:textHeaderMaxLines}</code></td><td></td></tr>
+           <tr><td><code>{@link #AppTheme_trackAbstractMaxLines com.iSpraker.android:trackAbstractMaxLines}</code></td><td></td></tr>
+           </table>
+           @see #AppTheme_actionbarCompatButtonStyle
+           @see #AppTheme_actionbarCompatLogoStyle
+           @see #AppTheme_actionbarCompatProgressIndicatorStyle
+           @see #AppTheme_actionbarCompatSeparatorStyle
+           @see #AppTheme_actionbarCompatTextStyle
+           @see #AppTheme_textHeaderMaxLines
+           @see #AppTheme_trackAbstractMaxLines
+         */
+        public static final int[] AppTheme = {
+            0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003,
+            0x7f010004, 0x7f010005, 0x7f010006
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.iSpraker.android.R.attr#actionbarCompatButtonStyle}
+          attribute's value can be found in the {@link #AppTheme} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name android:actionbarCompatButtonStyle
+        */
+        public static final int AppTheme_actionbarCompatButtonStyle = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.iSpraker.android.R.attr#actionbarCompatLogoStyle}
+          attribute's value can be found in the {@link #AppTheme} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name android:actionbarCompatLogoStyle
+        */
+        public static final int AppTheme_actionbarCompatLogoStyle = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.iSpraker.android.R.attr#actionbarCompatProgressIndicatorStyle}
+          attribute's value can be found in the {@link #AppTheme} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name android:actionbarCompatProgressIndicatorStyle
+        */
+        public static final int AppTheme_actionbarCompatProgressIndicatorStyle = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.iSpraker.android.R.attr#actionbarCompatSeparatorStyle}
+          attribute's value can be found in the {@link #AppTheme} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name android:actionbarCompatSeparatorStyle
+        */
+        public static final int AppTheme_actionbarCompatSeparatorStyle = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.iSpraker.android.R.attr#actionbarCompatTextStyle}
+          attribute's value can be found in the {@link #AppTheme} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name android:actionbarCompatTextStyle
+        */
+        public static final int AppTheme_actionbarCompatTextStyle = 4;
+        /**
+          <p>This symbol is the offset where the {@link com.iSpraker.android.R.attr#textHeaderMaxLines}
+          attribute's value can be found in the {@link #AppTheme} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:textHeaderMaxLines
+        */
+        public static final int AppTheme_textHeaderMaxLines = 5;
+        /**
+          <p>This symbol is the offset where the {@link com.iSpraker.android.R.attr#trackAbstractMaxLines}
+          attribute's value can be found in the {@link #AppTheme} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:trackAbstractMaxLines
+        */
+        public static final int AppTheme_trackAbstractMaxLines = 6;
+        /** Attributes that can be used with a BezelImageView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #BezelImageView_borderDrawable com.iSpraker.android:borderDrawable}</code></td><td></td></tr>
+           <tr><td><code>{@link #BezelImageView_maskDrawable com.iSpraker.android:maskDrawable}</code></td><td></td></tr>
+           </table>
+           @see #BezelImageView_borderDrawable
+           @see #BezelImageView_maskDrawable
+         */
+        public static final int[] BezelImageView = {
+            0x7f010011, 0x7f010012
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.iSpraker.android.R.attr#borderDrawable}
+          attribute's value can be found in the {@link #BezelImageView} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name android:borderDrawable
+        */
+        public static final int BezelImageView_borderDrawable = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.iSpraker.android.R.attr#maskDrawable}
+          attribute's value can be found in the {@link #BezelImageView} array.
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          @attr name android:maskDrawable
+        */
+        public static final int BezelImageView_maskDrawable = 0;
+        /** Attributes that can be used with a BlocksLayout.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #BlocksLayout_columns com.iSpraker.android:columns}</code></td><td></td></tr>
+           </table>
+           @see #BlocksLayout_columns
+         */
+        public static final int[] BlocksLayout = {
+            0x7f010007
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.iSpraker.android.R.attr#columns}
+          attribute's value can be found in the {@link #BlocksLayout} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:columns
+        */
+        public static final int BlocksLayout_columns = 0;
+        /** Attributes that can be used with a TimeRulerView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #TimeRulerView_dividerColor com.iSpraker.android:dividerColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #TimeRulerView_endHour com.iSpraker.android:endHour}</code></td><td></td></tr>
+           <tr><td><code>{@link #TimeRulerView_headerWidth com.iSpraker.android:headerWidth}</code></td><td></td></tr>
+           <tr><td><code>{@link #TimeRulerView_horizontalDivider com.iSpraker.android:horizontalDivider}</code></td><td></td></tr>
+           <tr><td><code>{@link #TimeRulerView_hourHeight com.iSpraker.android:hourHeight}</code></td><td></td></tr>
+           <tr><td><code>{@link #TimeRulerView_labelColor com.iSpraker.android:labelColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #TimeRulerView_labelPaddingLeft com.iSpraker.android:labelPaddingLeft}</code></td><td></td></tr>
+           <tr><td><code>{@link #TimeRulerView_labelTextSize com.iSpraker.android:labelTextSize}</code></td><td></td></tr>
+           <tr><td><code>{@link #TimeRulerView_startHour com.iSpraker.android:startHour}</code></td><td></td></tr>
+           </table>
+           @see #TimeRulerView_dividerColor
+           @see #TimeRulerView_endHour
+           @see #TimeRulerView_headerWidth
+           @see #TimeRulerView_horizontalDivider
+           @see #TimeRulerView_hourHeight
+           @see #TimeRulerView_labelColor
+           @see #TimeRulerView_labelPaddingLeft
+           @see #TimeRulerView_labelTextSize
+           @see #TimeRulerView_startHour
+         */
+        public static final int[] TimeRulerView = {
+            0x7f010008, 0x7f010009, 0x7f01000a, 0x7f01000b,
+            0x7f01000c, 0x7f01000d, 0x7f01000e, 0x7f01000f,
+            0x7f010010
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.iSpraker.android.R.attr#dividerColor}
+          attribute's value can be found in the {@link #TimeRulerView} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:dividerColor
+        */
+        public static final int TimeRulerView_dividerColor = 6;
+        /**
+          <p>This symbol is the offset where the {@link com.iSpraker.android.R.attr#endHour}
+          attribute's value can be found in the {@link #TimeRulerView} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:endHour
+        */
+        public static final int TimeRulerView_endHour = 8;
+        /**
+          <p>This symbol is the offset where the {@link com.iSpraker.android.R.attr#headerWidth}
+          attribute's value can be found in the {@link #TimeRulerView} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:headerWidth
+        */
+        public static final int TimeRulerView_headerWidth = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.iSpraker.android.R.attr#horizontalDivider}
+          attribute's value can be found in the {@link #TimeRulerView} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:horizontalDivider
+        */
+        public static final int TimeRulerView_horizontalDivider = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.iSpraker.android.R.attr#hourHeight}
+          attribute's value can be found in the {@link #TimeRulerView} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:hourHeight
+        */
+        public static final int TimeRulerView_hourHeight = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.iSpraker.android.R.attr#labelColor}
+          attribute's value can be found in the {@link #TimeRulerView} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:labelColor
+        */
+        public static final int TimeRulerView_labelColor = 5;
+        /**
+          <p>This symbol is the offset where the {@link com.iSpraker.android.R.attr#labelPaddingLeft}
+          attribute's value can be found in the {@link #TimeRulerView} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:labelPaddingLeft
+        */
+        public static final int TimeRulerView_labelPaddingLeft = 4;
+        /**
+          <p>This symbol is the offset where the {@link com.iSpraker.android.R.attr#labelTextSize}
+          attribute's value can be found in the {@link #TimeRulerView} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:labelTextSize
+        */
+        public static final int TimeRulerView_labelTextSize = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.iSpraker.android.R.attr#startHour}
+          attribute's value can be found in the {@link #TimeRulerView} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:startHour
+        */
+        public static final int TimeRulerView_startHour = 7;
+    };
 }

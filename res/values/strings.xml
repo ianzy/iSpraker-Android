@@ -4,4 +4,13 @@
     <string name="hello">Hello World, ISprakerAndroidClientActivity!</string>
     <string name="app_name">ISprakerAndroidClient</string>
 
+  	<string name="description_home">Home</string>
+    <string name="description_search">Search</string>
+    <string name="description_map">Map</string>
+    <string name="description_refresh">Refresh</string>
+    <string name="description_share">Share</string>
+    <string name="description_export">Export</string>
+    <string name="description_star">Star</string>
+    <string name="description_now">Go to Now</string>
+        
 </resources>

@@ -9,6 +9,8 @@ abstract public class JsonDAOBase {
 	
 	public JsonDAOBase(String url) {
 		client = new RestfulClient(url);
+		jsonSerDes = new Gson();
+		client.AddParam("token", "9b02756d6564a40dfa6436c3001a14410");
 	}
 
 }

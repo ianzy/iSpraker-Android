@@ -2,22 +2,33 @@ package com.iSpraker.android.dos;
 
 import java.util.Date;
 
+import android.graphics.Bitmap;
+
 public class User {
 	
 	private String email;
-	private Date createdAt;
-	private Date updatedAt;
+	private Date created_at;
+	private Date updated_at;
 	private double lat;
 	private double lng;
 	private String token;
 	private String uid;
-	private String screenName;
-	private String profileImageURL;
+	private String screen_name;
+	private String profile_image_url;
 	private String description;
-	private String timeZone;
-	private String phoneNumber;
-	private String twitterId;
+	private String time_zone;
+	private String phone_number;
+	private String twitter_id;
+	private Bitmap profileImage;
 	
+	public Bitmap getProfileImage() {
+		return profileImage;
+	}
+
+	public void setProfileImage(Bitmap profileImage) {
+		this.profileImage = profileImage;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -27,19 +38,19 @@ public class User {
 	}
 	
 	public Date getCreatedAt() {
-		return createdAt;
+		return created_at;
 	}
 	
 	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
+		this.created_at = createdAt;
 	}
 	
 	public Date getUpdatedAt() {
-		return updatedAt;
+		return updated_at;
 	}
 	
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
+	public void setUpdatedAt(Date updated_at) {
+		this.updated_at = updated_at;
 	}
 	
 	public double getLatitude() {
@@ -75,19 +86,19 @@ public class User {
 	}
 	
 	public String getScreenName() {
-		return screenName;
+		return screen_name;
 	}
 	
 	public void setScreenName(String screenName) {
-		this.screenName = screenName;
+		this.screen_name = screenName;
 	}
 	
 	public String getProfileImageURL() {
-		return profileImageURL;
+		return profile_image_url;
 	}
 	
 	public void setProfileImageURL(String profileImageURL) {
-		this.profileImageURL = profileImageURL;
+		this.profile_image_url = profileImageURL;
 	}
 	
 	public String getDescription() {
@@ -99,27 +110,27 @@ public class User {
 	}
 	
 	public String getPhoneNumber() {
-		return phoneNumber;
+		return phone_number;
 	}
 	
 	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+		this.phone_number = phoneNumber;
 	}
 	
 	public String getTimeZone() {
-		return timeZone;
+		return time_zone;
 	}
 	
 	public void setTimeZone(String timeZone) {
-		this.timeZone = timeZone;
+		this.time_zone = timeZone;
 	}
 	
 	public String getTwitterId() {
-		return twitterId;
+		return twitter_id;
 	}
 	
 	public void setTwitterId(String twitterId) {
-		this.twitterId = twitterId;
+		this.twitter_id = twitterId;
 	}
 
 }
