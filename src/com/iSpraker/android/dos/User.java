@@ -3,8 +3,10 @@ package com.iSpraker.android.dos;
 import java.util.Date;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class User {
+public class User implements Parcelable {
 	
 	private String email;
 	private Date created_at;
@@ -131,6 +133,54 @@ public class User {
 	
 	public void setTwitterId(String twitterId) {
 		this.twitter_id = twitterId;
+	}
+	
+	public User() {
+		
+	}
+	
+	public static final Parcelable.Creator<User> CREATOR = 
+        new Parcelable.Creator<User>() { 
+        public User createFromParcel(Parcel in) { 
+            return new User(in); 
+        } 
+
+        public User[] newArray(int size) { 
+            return new User[size]; 
+        } 
+    }; 
+	
+	public User(Parcel in) {
+		email = in.readString();
+		lat = in.readDouble();
+		lng = in.readDouble();
+		token = in.readString();
+		uid = in.readString();
+		screen_name = in.readString();
+		profile_image_url = in.readString();
+		description = in.readString();
+		time_zone = in.readString();
+		phone_number = in.readString();
+		twitter_id = in.readString();
+	}
+
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(email);
+		dest.writeDouble(lat);
+		dest.writeDouble(lng);
+		dest.writeString(token);
+		dest.writeString(uid);
+		dest.writeString(screen_name);
+		dest.writeString(profile_image_url);
+		dest.writeString(description);
+		dest.writeString(time_zone);
+		dest.writeString(phone_number);
+		dest.writeString(twitter_id);
 	}
 
 }

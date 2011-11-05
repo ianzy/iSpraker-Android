@@ -91,6 +91,9 @@ public class PeopleTabFragment extends ListFragment {
 //				startActivity(intent);
 				
 				Intent intent = new Intent();
+				User user = adapter.getItem(arg2);
+				Bundle b = new Bundle();
+				b.putParcelable("user", user);
 				intent.setClassName("com.iSpraker.android", "com.iSpraker.android.app.PersonDetailActivity");
 				startActivity(intent);
 			}
