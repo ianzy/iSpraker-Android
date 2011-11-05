@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp" 
+            android:background="@drawable/list_item_bg">
+
+            <QuickContactBadge
+                android:id="@+id/person_profile_img"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/xiaoxiang_normal" />
+
+            <TextView
+                android:id="@+id/person_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/person_profile_img"
+                android:layout_marginLeft="16dp"
+                android:layout_toRightOf="@+id/person_profile_img"
+                android:text="Name" />
+
+            <TextView
+                android:id="@+id/person_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/person_name"
+                android:layout_centerVertical="true"
+                android:text="Email" />
+
+            <TextView
+                android:id="@+id/person_tags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/person_profile_img"
+                android:layout_alignLeft="@+id/person_email"
+                android:text="Tags" />
+
+        </RelativeLayout>
+		<View android:layout_width="match_parent"
+		    android:layout_height="5dp"
+		    android:background="@drawable/separator"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" 
+            android:padding="5dp"
+            android:background="@drawable/list_item_bg"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/person_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="this will be a long long long long long long long long long long long long long long long long long long long long long long long long long long Description" />
+
+            <LinearLayout
+                android:id="@+id/relativeLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp">
+
+                <Button
+                    android:id="@+id/button1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Call" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SMS" />
+
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tweet" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <ListView
+            android:id="@+id/person_actions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:dividerHeight="1dp"
+            android:layout_weight="0">
+            
+        </ListView>
+
+    </LinearLayout>
+
+</LinearLayout>
