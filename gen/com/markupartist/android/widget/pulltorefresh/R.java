@@ -478,34 +478,36 @@ containing a value of this type.
         public static final int btn_default=0x7f020031;
         public static final int btn_focused=0x7f020032;
         public static final int btn_pressed=0x7f020033;
-        public static final int ic_action_list=0x7f020034;
-        public static final int ic_launcher=0x7f020035;
-        public static final int ic_pulltorefresh_arrow=0x7f020036;
-        public static final int ic_tab_events=0x7f020037;
-        public static final int ic_tab_events_selected=0x7f020038;
-        public static final int ic_tab_events_unselected=0x7f020039;
-        public static final int ic_tab_friends=0x7f02003a;
-        public static final int ic_tab_friends_selected=0x7f02003b;
-        public static final int ic_tab_friends_unselected=0x7f02003c;
-        public static final int ic_tab_me=0x7f02003d;
-        public static final int ic_tab_me_selected=0x7f02003e;
-        public static final int ic_tab_me_unselected=0x7f02003f;
-        public static final int icon=0x7f020040;
-        public static final int list_item_bg=0x7f020041;
-        public static final int pull_to_refresh_header_background=0x7f020042;
-        public static final int sandbox_logo_empty=0x7f020043;
-        public static final int separator=0x7f020044;
-        public static final int speaker_image_empty=0x7f020045;
-        public static final int tab_bg_selected=0x7f020046;
-        public static final int tab_bg_selector=0x7f020047;
-        public static final int tab_bg_unselected=0x7f020048;
-        public static final int tab_text_selector=0x7f020049;
-        public static final int whats_on_background=0x7f02004a;
-        public static final int whats_on_button=0x7f02004b;
-        public static final int whats_on_button_default=0x7f02004c;
-        public static final int whats_on_button_pressed=0x7f02004d;
-        public static final int whats_on_separator=0x7f02004e;
-        public static final int xiaoxiang_normal=0x7f02004f;
+        public static final int default_profile_3_normal=0x7f020034;
+        public static final int green_button=0x7f020035;
+        public static final int ic_action_list=0x7f020036;
+        public static final int ic_launcher=0x7f020037;
+        public static final int ic_pulltorefresh_arrow=0x7f020038;
+        public static final int ic_tab_events=0x7f020039;
+        public static final int ic_tab_events_selected=0x7f02003a;
+        public static final int ic_tab_events_unselected=0x7f02003b;
+        public static final int ic_tab_friends=0x7f02003c;
+        public static final int ic_tab_friends_selected=0x7f02003d;
+        public static final int ic_tab_friends_unselected=0x7f02003e;
+        public static final int ic_tab_me=0x7f02003f;
+        public static final int ic_tab_me_selected=0x7f020040;
+        public static final int ic_tab_me_unselected=0x7f020041;
+        public static final int icon=0x7f020042;
+        public static final int list_item_bg=0x7f020043;
+        public static final int pull_to_refresh_header_background=0x7f020044;
+        public static final int sandbox_logo_empty=0x7f020045;
+        public static final int separator=0x7f020046;
+        public static final int speaker_image_empty=0x7f020047;
+        public static final int tab_bg_selected=0x7f020048;
+        public static final int tab_bg_selector=0x7f020049;
+        public static final int tab_bg_unselected=0x7f02004a;
+        public static final int tab_text_selector=0x7f02004b;
+        public static final int whats_on_background=0x7f02004c;
+        public static final int whats_on_button=0x7f02004d;
+        public static final int whats_on_button_default=0x7f02004e;
+        public static final int whats_on_button_pressed=0x7f02004f;
+        public static final int whats_on_separator=0x7f020050;
+        public static final int xiaoxiang_normal=0x7f020051;
     }
     public static final class id {
         public static final int abs__action_bar=0x7f050027;
@@ -534,8 +536,8 @@ containing a value of this type.
         public static final int blocks_now=0x7f050015;
         public static final int blocks_ruler=0x7f050014;
         public static final int button1=0x7f05003a;
-        public static final int button2=0x7f05003b;
-        public static final int button3=0x7f05003c;
+        public static final int button3=0x7f05003b;
+        public static final int button4=0x7f05003c;
         public static final int description=0x7f050033;
         public static final int dialog_discard_confirm=0x7f050012;
         public static final int dialog_moderator=0x7f050013;
@@ -555,27 +557,26 @@ containing a value of this type.
         public static final int menu_refresh_progress=0x7f050011;
         public static final int name=0x7f050031;
         public static final int normal=0x7f050001;
-        public static final int person_actions=0x7f05003d;
         public static final int person_description=0x7f050038;
         public static final int person_email=0x7f050036;
         public static final int person_name=0x7f050035;
         public static final int person_profile_img=0x7f050034;
         public static final int person_tags=0x7f050037;
         public static final int profile_image=0x7f050030;
-        public static final int pull_to_refresh_header=0x7f05003e;
-        public static final int pull_to_refresh_image=0x7f050040;
-        public static final int pull_to_refresh_progress=0x7f05003f;
-        public static final int pull_to_refresh_text=0x7f050041;
-        public static final int pull_to_refresh_updated_at=0x7f050042;
+        public static final int pull_to_refresh_header=0x7f05003d;
+        public static final int pull_to_refresh_image=0x7f05003f;
+        public static final int pull_to_refresh_progress=0x7f05003e;
+        public static final int pull_to_refresh_text=0x7f050040;
+        public static final int pull_to_refresh_updated_at=0x7f050041;
         public static final int realtabcontent=0x01010000;
         public static final int relativeLayout1=0x7f050039;
         public static final int showCustom=0x7f050008;
         public static final int showHome=0x7f050005;
         public static final int showTitle=0x7f050007;
-        public static final int tabImage=0x7f050044;
+        public static final int tabImage=0x7f050043;
         public static final int tabMode=0x7f050003;
-        public static final int tabText=0x7f050045;
-        public static final int tabViewLayout=0x7f050043;
+        public static final int tabText=0x7f050044;
+        public static final int tabViewLayout=0x7f050042;
         public static final int textView1=0x7f050029;
         public static final int useLogo=0x7f050004;
         public static final int wrap_content=0x7f050000;
@@ -719,51 +720,52 @@ containing a value of this type.
         public static final int whats_on_thank_you_title=0x7f040047;
     }
     public static final class style {
-        public static final int ActionBarCompat=0x7f080023;
-        public static final int ActionBarCompatButton=0x7f080024;
-        public static final int ActionBarCompatLogo=0x7f080027;
-        public static final int ActionBarCompatProgressIndicator=0x7f080025;
-        public static final int ActionBarCompatSeparator=0x7f080026;
-        public static final int ActionBarCompatText=0x7f080028;
-        public static final int DashboardButton=0x7f080029;
+        public static final int ActionBarCompat=0x7f080024;
+        public static final int ActionBarCompatButton=0x7f080025;
+        public static final int ActionBarCompatLogo=0x7f080028;
+        public static final int ActionBarCompatProgressIndicator=0x7f080026;
+        public static final int ActionBarCompatSeparator=0x7f080027;
+        public static final int ActionBarCompatText=0x7f080029;
+        public static final int ButtonText=0x7f08001f;
+        public static final int DashboardButton=0x7f08002a;
         public static final int Internal_Widget_Sherlock_ActionBar=0x7f08001c;
         public static final int Internal_Widget_Sherlock_Light_ActionBar=0x7f08001d;
         /**  used for more complex list items, e.g. those with stars aligned to the top-right 
          */
-        public static final int ListItemContainer=0x7f08002e;
-        public static final int ListItemContainerBase=0x7f08002c;
-        public static final int ListItemContent=0x7f08002f;
-        public static final int ListItemSubtitle=0x7f08002b;
-        public static final int ListItemTitle=0x7f08002a;
-        public static final int PushButton=0x7f080038;
+        public static final int ListItemContainer=0x7f08002f;
+        public static final int ListItemContainerBase=0x7f08002d;
+        public static final int ListItemContent=0x7f080030;
+        public static final int ListItemSubtitle=0x7f08002c;
+        public static final int ListItemTitle=0x7f08002b;
+        public static final int PushButton=0x7f080039;
         /**  a simple list item is one whose container and content are the same view 
          */
-        public static final int SimpleListItem=0x7f08002d;
+        public static final int SimpleListItem=0x7f08002e;
         public static final int TextAppearance_Widget_Subtitle=0x7f08001b;
         public static final int TextAppearance_Widget_Title=0x7f08001a;
-        public static final int TextBody=0x7f080037;
+        public static final int TextBody=0x7f080038;
         /**  body content 
          */
-        public static final int TextHeader=0x7f080033;
-        public static final int TextHeader2=0x7f080035;
-        public static final int TextHeader3=0x7f080036;
-        public static final int TextHeaderSub=0x7f080034;
+        public static final int TextHeader=0x7f080034;
+        public static final int TextHeader2=0x7f080036;
+        public static final int TextHeader3=0x7f080037;
+        public static final int TextHeaderSub=0x7f080035;
         /**  Base application theme is the default theme. 
          */
-        public static final int Theme=0x7f08001f;
+        public static final int Theme=0x7f080020;
         public static final int Theme_Sherlock=0x7f080000;
         public static final int Theme_Sherlock_Light=0x7f08000d;
         /**  Variation on the Light theme that turns off the title 
          */
-        public static final int Theme_iSpraker=0x7f080021;
+        public static final int Theme_iSpraker=0x7f080022;
         /**  Start with the Holographic Light theme 
          */
-        public static final int Theme_iSpraker_Home=0x7f080022;
-        public static final int WhatsOnButtonItem=0x7f080032;
+        public static final int Theme_iSpraker_Home=0x7f080023;
+        public static final int WhatsOnButtonItem=0x7f080033;
         /**  What's On section in Home activity 
          */
-        public static final int WhatsOnItemBase=0x7f080030;
-        public static final int WhatsOnStaticItem=0x7f080031;
+        public static final int WhatsOnItemBase=0x7f080031;
+        public static final int WhatsOnStaticItem=0x7f080032;
         public static final int Widget_Sherlock_ActionBar_TabBar=0x7f080001;
         public static final int Widget_Sherlock_ActionBar_TabText=0x7f080003;
         public static final int Widget_Sherlock_ActionBar_TabView=0x7f080002;
@@ -788,7 +790,7 @@ containing a value of this type.
         public static final int Widget_Sherlock_PopupMenu=0x7f08000c;
         public static final int Widget_Sherlock_Spinner=0x7f080005;
         public static final int Widget_Sherlock_TextView_SpinnerItem_ActionBar=0x7f080009;
-        public static final int abTextColor=0x7f080020;
+        public static final int abTextColor=0x7f080021;
         public static final int iSprakerTheme=0x7f08001e;
     }
     public static final class styleable {

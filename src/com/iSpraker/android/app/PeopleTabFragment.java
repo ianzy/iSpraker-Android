@@ -91,10 +91,11 @@ public class PeopleTabFragment extends ListFragment {
 //				startActivity(intent);
 				
 				Intent intent = new Intent();
-				User user = adapter.getItem(arg2);
+				User user = adapter.getItem(arg2-1);
 				Bundle b = new Bundle();
 				b.putParcelable("user", user);
 				intent.setClassName("com.iSpraker.android", "com.iSpraker.android.app.PersonDetailActivity");
+				intent.putExtras(b);
 				startActivity(intent);
 			}
 		});
@@ -199,24 +200,24 @@ public class PeopleTabFragment extends ListFragment {
 
 		// Define a listener that responds to location updates
 		locationListener = new LocationListener() {
-	    public void onLocationChanged(Location location) {
-		    	// Called when a new location is found by the network location provider.
-		    	
-		    	double lat = location.getLatitude();
-		    	double lng = location.getLongitude();
-		    	//do something in background with these
-		    	
-		  	locationManager.removeUpdates(this);
-		  	new UpdatePeopleListTask().execute(lat, lng);
-		        
-		  }
-		
-		  public void onStatusChanged(String provider, int status, Bundle extras) {}
-		
-		  public void onProviderEnabled(String provider) {}
-		
-		  public void onProviderDisabled(String provider) {}
-};
+			public void onLocationChanged(Location location) {
+			    	// Called when a new location is found by the network location provider.
+			    	
+			    	double lat = location.getLatitude();
+			    	double lng = location.getLongitude();
+			    	//do something in background with these
+			    	
+			  	locationManager.removeUpdates(this);
+			  	new UpdatePeopleListTask().execute(lat, lng);
+			        
+			  }
+			
+			  public void onStatusChanged(String provider, int status, Bundle extras) {}
+			
+			  public void onProviderEnabled(String provider) {}
+			
+			  public void onProviderDisabled(String provider) {}
+		};
 
 	  // Register the listener with the Location Manager to receive location updates
 //	  locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);

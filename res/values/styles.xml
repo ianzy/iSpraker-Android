@@ -5,6 +5,20 @@
 	    <item name="abBackground">@drawable/actionbar_background</item>
 	    <item name="abTitleTextStyle">@style/abTextColor</item>
 	</style>
+	
+    <style name="ButtonText">
+	    <item name="android:layout_width">100dp</item>
+	    <item name="android:layout_height">wrap_content</item>
+	    <item name="android:textColor">#ffffff</item>
+	    <item name="android:gravity">center</item>
+	    <item name="android:layout_margin">3dp</item>
+	    <item name="android:textSize">15dp</item>
+	    <item name="android:textStyle">bold</item>
+	    <item name="android:shadowColor">#000000</item>
+	    <item name="android:shadowDx">1</item>
+	    <item name="android:shadowDy">1</item>
+	    <item name="android:shadowRadius">2</item>
+	</style>
     
     <!-- Base application theme is the default theme. -->
     <style name="Theme" parent="android:style/Theme" />

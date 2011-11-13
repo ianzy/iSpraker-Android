@@ -64,7 +64,7 @@
                 android:id="@+id/person_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="this will be a long long long long long long long long long long long long long long long long long long long long long long long long long long Description" />
+                android:text="description" />
 
             <LinearLayout
                 android:id="@+id/relativeLayout1"
@@ -72,36 +72,66 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="10dp">
+				<Button android:text="Call" android:id="@+id/button1" 
+				    android:background="@drawable/green_button" 
+				    style="@style/ButtonText" />
 
                 <Button
-                    android:id="@+id/button1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Call" />
-
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/button3" 
+				    android:background="@drawable/green_button" 
+				    style="@style/ButtonText"
                     android:text="SMS" />
 
                 <Button
-                    android:id="@+id/button3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/button4" 
+				    android:background="@drawable/green_button" 
+				    style="@style/ButtonText"
                     android:text="Tweet" />
 
             </LinearLayout>
 
         </LinearLayout>
-        <ListView
-            android:id="@+id/person_actions"
+        
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" 
-            android:dividerHeight="1dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" 
+            android:padding="5dp"
+            android:background="@drawable/list_item_bg"
             android:layout_weight="0">
-            
-        </ListView>
+			<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:padding="2dp">
+			<Button android:text="Call" android:id="@+id/button1" 
+			android:background="@drawable/green_button" 
+			style="@style/ButtonText" />
+			
+			<Button
+			android:id="@+id/button3" 
+			android:background="@drawable/green_button" 
+			style="@style/ButtonText"
+			android:text="SMS" />
+			</LinearLayout>
+			
+			<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:padding="2dp">
+			<Button android:text="Direct Message" android:id="@+id/button1" 
+			android:background="@drawable/green_button" 
+			style="@style/ButtonText" />
+			
+			<Button
+			android:id="@+id/button3" 
+			android:background="@drawable/green_button" 
+			style="@style/ButtonText"
+			android:text="Add as contact" />
+			
+			</LinearLayout>
+		</LinearLayout>
 
     </LinearLayout>
 

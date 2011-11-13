@@ -1,30 +1,41 @@
 package com.iSpraker.android.app;
 
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.iSpraker.android.R;
 import com.iSpraker.android.dos.User;
+import com.iSpraker.android.utils.NetworkHelper;
 
 public class PersonDetailActivity extends FragmentActivity {
 	
-	private String lv_arr[]={"Activities >","Friends >","Add Friend >"};
+//	private String lv_arr[]={"Activities >","Friends >","Add Friend >"};
+	private String phoneNumber;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	      super.onCreate(savedInstanceState);   
 	      setContentView(R.layout.person_detail);	
-	      ListView actionsList = (ListView)findViewById(R.id.person_actions);
-	    	// By using setAdpater method in listview we an add string array in list.
-	      actionsList.setAdapter(new ArrayAdapter<String>(this, R.layout.me_actions_item , lv_arr));
+//	      ListView actionsList = (ListView)findViewById(R.id.person_actions);
+//	      actionsList.setAdapter(new ArrayAdapter<String>(this, R.layout.me_actions_item , lv_arr));
 	      
 	      // get the user detail
 	      Bundle b = this.getIntent().getExtras();
 	      User user = (User)b.getParcelable("user");
+	      
+	      ((TextView)this.findViewById(R.id.person_name)).setText(user.getScreenName());
+	      ((TextView)this.findViewById(R.id.person_email)).setText(user.getEmail());
+	      ((TextView)this.findViewById(R.id.person_description)).setText(user.getDescription());
+	      ((ImageView)this.findViewById(R.id.person_profile_img)).setImageDrawable(this.getResources().getDrawable(R.drawable.default_profile_3_normal));
+	      this.phoneNumber = user.getPhoneNumber();
+	      
+	      new DownloadImageTask().execute(user.getProfileImageURL());
 	}
 	 
 	@Override
@@ -35,4 +46,20 @@ public class PersonDetailActivity extends FragmentActivity {
 			
 		return super.onCreateOptionsMenu(menu);
 	}
+	
+	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+	    protected Bitmap doInBackground(String... urls) {
+	    	if (urls[0] == null) {
+	    		return null;
+	    	}
+	    	Bitmap img = NetworkHelper.fetchImage(urls[0]);
+			return img;
+	    }
+
+	    protected void onPostExecute(Bitmap result) {
+	    	if (result != null) {
+	    		((ImageView)findViewById(R.id.person_profile_img)).setImageBitmap(result);
+	    	}
+	    }
+	 }
 }
