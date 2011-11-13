@@ -16,6 +16,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ public class PeopleTabFragment extends ListFragment {
 	private PeopleListAdapter adapter;
 	private LocationManager locationManager;
 	private LocationListener locationListener;
+	private PullToRefreshListView pairedListView;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,7 +77,7 @@ public class PeopleTabFragment extends ListFragment {
     	    }
     	}
     	
-    	ListView pairedListView = this.getListView();
+    	pairedListView = (PullToRefreshListView)this.getListView();
         pairedListView.setAdapter(adapter);
         pairedListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -112,6 +114,7 @@ public class PeopleTabFragment extends ListFragment {
             }
         });
     }
+    
     
 //    @Override
 //    public Object onRetainNonConfigurationInstance() {
@@ -287,8 +290,9 @@ public class PeopleTabFragment extends ListFragment {
         	for(User e : users) {
         		adapter.addItem(e);
         	}
+        	
         	new DownloadImageTask().execute();
-        	PullToRefreshListView lv = (PullToRefreshListView)getListView();
+        	PullToRefreshListView lv = pairedListView;
         	if (lv != null) {
         		lv.onRefreshComplete();
         	}
