@@ -209,7 +209,7 @@ public class PeopleTabFragment extends ListFragment {
 			    	double lat = location.getLatitude();
 			    	double lng = location.getLongitude();
 			    	//do something in background with these
-			    	
+			    Log.i("---------------------------------------", ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>here");
 			  	locationManager.removeUpdates(this);
 			  	new UpdatePeopleListTask().execute(lat, lng);
 			        
@@ -223,7 +223,7 @@ public class PeopleTabFragment extends ListFragment {
 		};
 
 	  // Register the listener with the Location Manager to receive location updates
-//	  locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+	  locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 	  locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
 	}
@@ -279,7 +279,7 @@ public class PeopleTabFragment extends ListFragment {
     
     private class UpdatePeopleListTask extends AsyncTask<Double, Integer, List<User>> {
         protected List<User> doInBackground(Double... location) {
-        	String url = "http://10.0.2.2:3000/api/9b02756d6564a40dfa6436c3001a1441/users.json";
+        	String url = "http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/users.json"; //PeopleTabFragment.this.getResources().getString(R.string.api_users);
         	IUsersDAO userDAO = new JsonUsersDAO(url);
         	return userDAO.getUsersByLocation(location[0], location[1]);
         }

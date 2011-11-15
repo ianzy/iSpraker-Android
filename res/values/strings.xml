@@ -121,5 +121,8 @@
     <string name="eula_text">EULA goes here.</string>
     <string name="accept">Accept</string>
     <string name="decline">Decline</string>
+    
+    <string name="api_users_local">http://10.0.2.2:3000/api/9b02756d6564a40dfa6436c3001a1441/users.json</string>
+    <string name="api_users">http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/users.json</string>
         
 </resources>

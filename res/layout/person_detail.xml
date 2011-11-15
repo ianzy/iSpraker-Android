@@ -66,30 +66,6 @@
                 android:layout_height="wrap_content"
                 android:text="description" />
 
-            <LinearLayout
-                android:id="@+id/relativeLayout1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="10dp">
-				<Button android:text="Call" android:id="@+id/button1" 
-				    android:background="@drawable/green_button" 
-				    style="@style/ButtonText" />
-
-                <Button
-                    android:id="@+id/button3" 
-				    android:background="@drawable/green_button" 
-				    style="@style/ButtonText"
-                    android:text="SMS" />
-
-                <Button
-                    android:id="@+id/button4" 
-				    android:background="@drawable/green_button" 
-				    style="@style/ButtonText"
-                    android:text="Tweet" />
-
-            </LinearLayout>
-
         </LinearLayout>
         
         <LinearLayout
