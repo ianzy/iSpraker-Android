@@ -82,13 +82,14 @@
 			android:padding="2dp">
 			<Button android:text="Call" android:id="@+id/button1" 
 			android:background="@drawable/green_button" 
-			style="@style/ButtonText" />
+			style="@style/ButtonText" 
+			android:onClick="onCallClick"/>
 			
 			<Button
 			android:id="@+id/button3" 
 			android:background="@drawable/green_button" 
 			style="@style/ButtonText"
-			android:text="SMS" />
+			android:text="SMS"/>
 			</LinearLayout>
 			
 			<LinearLayout
