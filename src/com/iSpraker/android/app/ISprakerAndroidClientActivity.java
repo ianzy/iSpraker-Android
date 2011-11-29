@@ -1,6 +1,7 @@
 package com.iSpraker.android.app;
 
 import java.util.HashMap;
+import java.util.List;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -10,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
+import android.support.v4.view.MenuItem.OnMenuItemClickListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,19 +19,61 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.iSpraker.android.R;
+import com.iSpraker.android.dos.User;
 
-public class ISprakerAndroidClientActivity extends FragmentActivity {
+public class ISprakerAndroidClientActivity extends FragmentActivity implements IPeopleTabCallbacks, IPeopleWallCallbacks {
     private TabHost mTabHost;
     private TabManager mTabManager;
+    private List<User> mData;
+    public enum WallMode {
+    	LIST, WALL
+    }
+    private WallMode currentMode;
     
     @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add("Text")
-			.setIcon(R.drawable.ic_action_list)
-			.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-			
+//    	menu.add("ListMode")
+//		.setIcon(R.drawable.ic_action_list)
+//		.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+//			@Override
+//			public boolean onMenuItemClick(MenuItem item) {
+//				mTabManager.replaceTabFragment("Friends", PeopleWallFragment.class);
+//				return true;
+//			}
+//			
+//		})
+//		.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+//    	
+//    	menu.add("WallMode")
+//		.setIcon(R.drawable.ic_action_peoplewall)
+//		.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+//			@Override
+//			public boolean onMenuItemClick(MenuItem item) {
+//				mTabManager.replaceTabFragment("Friends", PeopleTabFragment.class);
+//				return true;
+//			}
+//			
+//		})
+//		.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+    	
 		return super.onCreateOptionsMenu(menu);
 	}
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+//            	Toast.makeText(this, "wow this is not home", Toast.LENGTH_LONG).show();
+                // app icon in Action Bar clicked; go home
+//                Intent intent = new Intent(this, HomeActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(intent);
+            	mTabHost.setCurrentTab(1);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +139,7 @@ public class ISprakerAndroidClientActivity extends FragmentActivity {
 
         static final class TabInfo {
             private final String tag;
-            private final Class<?> clss;
+            private Class<?> clss;
             private final Bundle args;
             private Fragment fragment;
 
@@ -147,6 +191,27 @@ public class ISprakerAndroidClientActivity extends FragmentActivity {
             mTabs.put(tag, info);
             mTabHost.addTab(tabSpec);
         }
+        
+//        public Fragment getCurrentFragment() {
+//        	return mLastTab.fragment;
+//        }
+        // seems this only work when the tabId is the current tab
+        public void replaceTabFragment(String tabId, Class<?> fragmentClass) {
+        	TabInfo existingTab = mTabs.get(tabId);
+        	FragmentTransaction ft = mActivity.getSupportFragmentManager().beginTransaction();
+        	if (existingTab != null) {
+                if (existingTab.fragment != null) {
+                    ft.detach(existingTab.fragment);
+                }
+                existingTab.fragment = Fragment.instantiate(mActivity,
+                		fragmentClass.getName(), null);
+                existingTab.clss = fragmentClass;
+                ft.add(mContainerId, existingTab.fragment, tabId);
+            }
+        	ft.commit();
+            mActivity.getSupportFragmentManager().executePendingTransactions();
+        	
+        }
 
         public void onTabChanged(String tabId) {
             TabInfo newTab = mTabs.get(tabId);
@@ -174,5 +239,19 @@ public class ISprakerAndroidClientActivity extends FragmentActivity {
             }
         }
     }
+
+	public void onListModeChange(List<User> users) {
+		this.mData = users;
+		mTabManager.replaceTabFragment("Friends", PeopleWallFragment.class);
+	}
+
+	public List<User> getUsers() {
+		return this.mData;
+	}
+
+	public void onWallModeChange(List<User> users) {
+		this.mData = users;
+		mTabManager.replaceTabFragment("Friends", PeopleTabFragment.class);
+	}
     
 }

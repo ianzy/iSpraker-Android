@@ -16,22 +16,27 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v4.view.Menu;
+import android.support.v4.view.MenuItem;
+import android.support.v4.view.MenuItem.OnMenuItemClickListener;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iSpraker.android.R;
 import com.iSpraker.android.dao.IUsersDAO;
 import com.iSpraker.android.dao.impl.JsonUsersDAO;
+import com.iSpraker.android.dos.Paging;
 import com.iSpraker.android.dos.User;
+import com.iSpraker.android.dos.UsersResponse;
 import com.iSpraker.android.utils.NetworkHelper;
 import com.markupartist.android.widget.PullToRefreshListView;
 import com.markupartist.android.widget.PullToRefreshListView.OnRefreshListener;
@@ -40,15 +45,23 @@ public class PeopleTabFragment extends ListFragment {
 	
 //	private List<User> users;
 	private PeopleListAdapter adapter;
+//	private PhotoWallAdapter wallAdapter;
 	private LocationManager locationManager;
 	private LocationListener locationListener;
 	private PullToRefreshListView pairedListView;
+//	private GridView gridview;
+	
+	private Paging pagingInfo;
+	private double lat = Double.NaN;
+	private double lng = Double.NaN;
+	
+	private int indexOfList;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         setRetainInstance(true);
-       
     }
     
     @Override
@@ -59,13 +72,34 @@ public class PeopleTabFragment extends ListFragment {
     }
     
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    	super.onCreateOptionsMenu(menu, inflater);
+    	menu.add("WallMode")
+		.setIcon(R.drawable.ic_action_peoplewall)
+		.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+			@Override
+			public boolean onMenuItemClick(MenuItem item) {
+				IPeopleTabCallbacks callback = (IPeopleTabCallbacks)getActivity();
+				callback.onListModeChange(adapter.mData);
+				return true;
+			}	
+		})
+		.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+    }
+    
+    @Override
     public void onActivityCreated(Bundle savedInstanceSate) {
     	super.onActivityCreated(savedInstanceSate);
-//      setContentView(R.layout.people_tab);
-        
-//      adapter = (PeopleListAdapter)getLastNonConfigurationInstance();
+    	
     	if(null == adapter) {
-    		adapter = new PeopleListAdapter();
+    		IPeopleTabCallbacks callbacks = (IPeopleTabCallbacks)this.getActivity();
+    		List<User> users = callbacks.getUsers();
+    		if (users == null) {
+    			adapter = new PeopleListAdapter();
+    		} else {
+    			adapter = new PeopleListAdapter(users);
+    		}
+    		
     		initializeUserLocation();
     	    
     	    if(!this.isOnline()) {
@@ -78,19 +112,23 @@ public class PeopleTabFragment extends ListFragment {
     	}
     	
     	pairedListView = (PullToRefreshListView)this.getListView();
+    	
+    	// set show more list footer
+    	View footerView = ((LayoutInflater)this.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.list_footer, null, false);
+    	pairedListView.addFooterView(footerView);
+    	
         pairedListView.setAdapter(adapter);
         pairedListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				
-//				Log.i(">>>>>>>>>>>>>>>>>>>>>>>>>", String.valueOf(arg2));
-//				Intent intent = new Intent();
-//				User e = adapter.getItem(arg2);
-//				Bundle b = new Bundle();
-//				b.putParcelable("event", e);
-//				intent.setClassName("exercise.app","exercise.app.EventDetails");
-//				intent.putExtras(b);
-//				startActivity(intent);
+				if (adapter.mData.size() == arg2 - 1) {
+					Toast.makeText(PeopleTabFragment.this.getActivity(), "show more clicked!", Toast.LENGTH_LONG).show();
+					if (lat != Double.NaN && lng != Double.NaN && adapter.mData != null && pagingInfo != null) {
+						new UpdatePeopleListTask().execute(lat, lng);
+					}
+					return;
+				}
 				
 				Intent intent = new Intent();
 				User user = adapter.getItem(arg2-1);
@@ -105,21 +143,13 @@ public class PeopleTabFragment extends ListFragment {
         ((PullToRefreshListView) pairedListView).setOnRefreshListener(new OnRefreshListener() {
             public void onRefresh() {
                 // Do work to refresh the list here.
-            	
             	if( locationManager != null && locationListener != null) {
-//            		adapter.mData.clear();
             		locationManager.removeUpdates(locationListener);
             	}
             	initializeUserLocation();
             }
         });
     }
-    
-    
-//    @Override
-//    public Object onRetainNonConfigurationInstance() {
-//        return this.adapter;
-//    }
     
     public boolean isOnline() {
         ConnectivityManager cm = (ConnectivityManager) this.getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -185,16 +215,6 @@ public class PeopleTabFragment extends ListFragment {
 	    Intent gpsOptionsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);  
 	    this.startActivity(gpsOptionsIntent);  
 	}  
-
-
-//	public void onRefreshClick(View v) {
-//		// trigger off background sync
-//    	findViewById(R.id.btn_title_refresh).setVisibility(
-//                View.GONE );
-//        findViewById(R.id.title_refresh_progress).setVisibility(
-//                View.VISIBLE);
-//        initializeUserLocation();
-//	}
 	
 	//fetch user location information
 	private void initializeUserLocation() {
@@ -204,14 +224,16 @@ public class PeopleTabFragment extends ListFragment {
 		// Define a listener that responds to location updates
 		locationListener = new LocationListener() {
 			public void onLocationChanged(Location location) {
-			    	// Called when a new location is found by the network location provider.
-			    	
-			    	double lat = location.getLatitude();
-			    	double lng = location.getLongitude();
-			    	//do something in background with these
+		    	// Called when a new location is found by the network location provider.
+		    	
+		    	double lat = location.getLatitude();
+		    	double lng = location.getLongitude();
+		    	//do something in background with these
 			    Log.i("---------------------------------------", ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>here");
+			    PeopleTabFragment.this.lat = lat;
+			    PeopleTabFragment.this.lng = lng;
 			  	locationManager.removeUpdates(this);
-			  	new UpdatePeopleListTask().execute(lat, lng);
+			  	new RefreshPeopleListTask().execute(lat, lng);
 			        
 			  }
 			
@@ -227,26 +249,6 @@ public class PeopleTabFragment extends ListFragment {
 	  locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
 	}
-	
-//	private Handler handler = new Handler() {
-//        public void  handleMessage(Message msg) {
-//            //update UI here
-//        	switch(msg.what) {
-//    		case Updater.NODATAFOUND:
-//    			Toast.makeText(EventViewer.this, "Unable to fetch events on this zipcode...", Toast.LENGTH_LONG).show();
-//    			break;
-//    		case Updater.SUCCESS:
-//    			adapter.mData = new ArrayList<Event>();
-//            	adapter.notifyDataSetChanged();
-//            	for(Event e : events) {
-//            		adapter.addItem(e);
-//            	}
-//            	new DownloadImageTask().execute();
-//    			break;
-//        	}
-//        	((ImageButton)EventViewer.this.findViewById(R.id.button_refresh)).setEnabled(true);
-//        }
-//	};
 	
 	private class DownloadImageTask extends AsyncTask<Void, Void, Void> {
 	     protected Void doInBackground(Void... urls) {
@@ -265,42 +267,79 @@ public class PeopleTabFragment extends ListFragment {
 	     protected void onPostExecute(Void result) {
 	    	 adapter.notifyDataSetInvalidated();
 	     }
-	 }
+	}
     
-    public void onHomeClick(View v) {
-    	Context context = this.getActivity().getApplicationContext();
-    	CharSequence text = "Dude";
-    	int duration = Toast.LENGTH_SHORT;
-
-    	Toast toast = Toast.makeText(context, text, duration);
-    	toast.show();
-    }
+//    public void onHomeClick(View v) {
+//    	Context context = this.getActivity().getApplicationContext();
+//    	CharSequence text = "Dude";
+//    	int duration = Toast.LENGTH_SHORT;
+//
+//    	Toast toast = Toast.makeText(context, text, duration);
+//    	toast.show();
+//    }
     
     
-    private class UpdatePeopleListTask extends AsyncTask<Double, Integer, List<User>> {
-        protected List<User> doInBackground(Double... location) {
-        	String url = "http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/users.json"; //PeopleTabFragment.this.getResources().getString(R.string.api_users);
+	private class RefreshPeopleListTask extends AsyncTask<Double, Integer, UsersResponse> {
+        protected UsersResponse doInBackground(Double... location) {
+//        	String url = "http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/users.json"; //PeopleTabFragment.this.getResources().getString(R.string.api_users);
+        	String url = PeopleTabFragment.this.getResources().getString(R.string.api_users_local);
         	IUsersDAO userDAO = new JsonUsersDAO(url);
-        	return userDAO.getUsersByLocation(location[0], location[1]);
+        	return userDAO.getUsersDataByLocation(location[0], location[1]);
         }
 
-        protected void onPostExecute(List<User> users) {
+        protected void onPostExecute(UsersResponse usersResponse) {
         	adapter.mData = new ArrayList<User>();
-        	adapter.notifyDataSetChanged();
-        	for(User e : users) {
+        	for(User e : usersResponse.getUsers()) {
         		adapter.addItem(e);
         	}
+        	adapter.notifyDataSetChanged();
+        	
+        	// reset paging information
+        	pagingInfo = usersResponse.getPaging();
         	
         	new DownloadImageTask().execute();
         	PullToRefreshListView lv = pairedListView;
         	if (lv != null) {
         		lv.onRefreshComplete();
         	}
-        	super.onPostExecute(users);
+        	super.onPostExecute(usersResponse);
+        }
+    }
+	
+	private class UpdatePeopleListTask extends AsyncTask<Double, Integer, UsersResponse> {
+        protected UsersResponse doInBackground(Double... location) {
+//        	String url = "http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/users.json"; //PeopleTabFragment.this.getResources().getString(R.string.api_users);
+        	String url = PeopleTabFragment.this.getResources().getString(R.string.api_users_local);
+        	IUsersDAO userDAO = new JsonUsersDAO(url);
+        	
+        	indexOfList = pairedListView.getFirstVisiblePosition();
+        	
+        	return userDAO.getUsersDataByLocation(location[0], location[1], pagingInfo.getCurrentPage()+1);
+        }
+
+        protected void onPostExecute(UsersResponse usersResponse) {
+//        	adapter.notifyDataSetChanged();
+        	for(User e : usersResponse.getUsers()) {
+        		adapter.addItem(e);
+        	}
+        	adapter.notifyDataSetChanged();
+        	// update paging information
+        	pagingInfo = usersResponse.getPaging();
+        	
+        	new DownloadImageTask().execute();
+        	PullToRefreshListView lv = pairedListView;
+        	if (lv != null) {
+        		lv.onRefreshComplete();
+        	}
+        	
+        	lv.setSelectionFromTop(indexOfList, 0);
+        	super.onPostExecute(usersResponse);
         }
     }
     
-    
+    /**
+     * adapter for the list view
+     */
     private class PeopleListAdapter extends BaseAdapter {
 		 
         private List<User> mData;
@@ -310,10 +349,15 @@ public class PeopleTabFragment extends ListFragment {
             mInflater = (LayoutInflater)PeopleTabFragment.this.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             mData = new ArrayList<User>();
         }
+        
+        public PeopleListAdapter(List<User> users) {
+            mInflater = (LayoutInflater)PeopleTabFragment.this.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            mData = users;
+        }
  
         public void addItem(final User user) {
-            mData.add(0,user);
-            notifyDataSetChanged();
+            mData.add(user);
+//            notifyDataSetChanged();
         }
  
         public int getCount() {
@@ -330,10 +374,10 @@ public class PeopleTabFragment extends ListFragment {
  
         
         public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder = null;
+        	ListViewHolder holder = null;
             if (convertView == null) {
                 convertView = mInflater.inflate(R.layout.people_list_item, null);
-                holder = new ViewHolder();
+                holder = new ListViewHolder();
                 holder.name = (TextView)convertView.findViewById(R.id.name);
                 holder.email = (TextView)convertView.findViewById(R.id.email);
                 holder.profileImage = (ImageView)convertView.findViewById(R.id.profile_image);
@@ -341,7 +385,7 @@ public class PeopleTabFragment extends ListFragment {
                
                 convertView.setTag(holder);
             } else {
-                holder = (ViewHolder)convertView.getTag();
+                holder = (ListViewHolder)convertView.getTag();
             }
             User e = mData.get(position);
             holder.name.setText(e.getScreenName());
@@ -353,10 +397,14 @@ public class PeopleTabFragment extends ListFragment {
  
     }
  
-    public static class ViewHolder {
+    /**
+     * view holder for list mode
+     */
+    public static class ListViewHolder {
         public TextView name;
         public TextView email;
         public TextView description;
         public ImageView profileImage;
     }
+       
 }

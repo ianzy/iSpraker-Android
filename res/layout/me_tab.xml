@@ -15,7 +15,7 @@
             android:padding="10dp" 
             android:background="@drawable/list_item_bg">
 
-            <QuickContactBadge
+            <ImageView
                 android:id="@+id/me_profile_img"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
