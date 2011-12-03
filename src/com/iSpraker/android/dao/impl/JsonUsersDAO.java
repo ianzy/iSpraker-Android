@@ -15,9 +15,12 @@ import com.iSpraker.android.dos.UsersResponse;
 import com.iSpraker.android.utils.RestfulClient;
 
 public class JsonUsersDAO extends JsonDAOBase implements IUsersDAO {
+	
+	private String baseUrl;
 
 	public JsonUsersDAO(String url) {
 		super(url);
+		this.baseUrl = url;
 	}
 
 //	public List<User> getUsersByLocation(double lat, double lng) {
@@ -56,6 +59,7 @@ public class JsonUsersDAO extends JsonDAOBase implements IUsersDAO {
 
 	@Override
 	public UsersResponse getUsersDataByLocation(double lat, double lng, int page) {
+		this.client.setUrl(this.baseUrl);
 		client.AddParam("latitude", jsonSerDes.toJson(lat));
 		client.AddParam("longitude", jsonSerDes.toJson(lng));
 		client.AddParam("page", String.valueOf(page));
@@ -84,6 +88,13 @@ public class JsonUsersDAO extends JsonDAOBase implements IUsersDAO {
 				(Paging)jsonSerDes.fromJson(paging.toString(), pagingTypeToken));
 		
 		return response;
+	}
+
+	@Override
+	public UsersResponse getUserByUid(String uid) {
+		
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

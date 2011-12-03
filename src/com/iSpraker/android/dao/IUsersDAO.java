@@ -12,4 +12,6 @@ public interface IUsersDAO {
 	public UsersResponse getUsersDataByLocation(double lat, double lng);
 	
 	public UsersResponse getUsersDataByLocation(double lat, double lng, int page);
+	
+	public UsersResponse getUserByUid(String uid);
 }

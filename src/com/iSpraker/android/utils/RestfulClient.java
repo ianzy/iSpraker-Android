@@ -30,6 +30,10 @@ public class RestfulClient {
     private ArrayList <NameValuePair> headers;
 
     private String url;
+    
+    public void setUrl(String url) {
+    	this.url = url;
+    }
 
     private int responseCode;
     private String message;
