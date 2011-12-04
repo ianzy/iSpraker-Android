@@ -6,12 +6,15 @@ import twitter4j.TwitterFactory;
 import twitter4j.User;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.widget.Toast;
 
@@ -108,7 +111,25 @@ public class LoginActivity extends FragmentActivity {
 			requestToken= mTwitter.getOAuthRequestToken(CALLBACK_URL);
 			WebView twitterSite = new WebView(this);
 			twitterSite.loadUrl(requestToken.getAuthenticationURL());
+			twitterSite.requestFocus(View.FOCUS_DOWN);
+			twitterSite.setOnTouchListener(new View.OnTouchListener() {
+		        @Override
+		        public boolean onTouch(View v, MotionEvent event) {
+		            switch (event.getAction()) {
+		                case MotionEvent.ACTION_DOWN:
+		                case MotionEvent.ACTION_UP:
+		                    if (!v.hasFocus()) {
+		                        v.requestFocus();
+		                    }
+		                    break;
+		            }
+		            return false;
+		        }
+
+		    });
 			setContentView(twitterSite);
+//			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//			imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
 			
 		} catch (TwitterException e) {
 			e.printStackTrace();
