@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bottom_tab_padding_up">5.0dip</dimen>
+    <dimen name="bottom_tab_padding_drawable">3.0dip</dimen>
+    <dimen name="switch_logo_bottom_padding">40.0sp</dimen>
+    <dimen name="userinfo_center_square_height">120.0dip</dimen>
+    <dimen name="splash_test_top_margin_top">116.0px</dimen>
+    <dimen name="listviewheight">63.0px</dimen>
+    <dimen name="preview_pic_size">70.0px</dimen>
+</resources>

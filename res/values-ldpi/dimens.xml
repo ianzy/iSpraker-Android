@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="splash_test_center_margin_right">20.0dip</dimen>
+    <dimen name="userinfo_center_square_height">130.0dip</dimen>
+    <dimen name="splash_test_top_margin_top">10.0dip</dimen>
+</resources>

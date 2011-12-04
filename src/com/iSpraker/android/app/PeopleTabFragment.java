@@ -281,8 +281,8 @@ public class PeopleTabFragment extends ListFragment {
     
 	private class RefreshPeopleListTask extends AsyncTask<Double, Integer, UsersResponse> {
         protected UsersResponse doInBackground(Double... location) {
-//        	String url = "http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/users.json"; //PeopleTabFragment.this.getResources().getString(R.string.api_users);
-        	String url = PeopleTabFragment.this.getResources().getString(R.string.api_users_local);
+        	String url = "http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/users.json"; //PeopleTabFragment.this.getResources().getString(R.string.api_users);
+//        	String url = PeopleTabFragment.this.getResources().getString(R.string.api_users_local);
         	IUsersDAO userDAO = new JsonUsersDAO(url);
         	return userDAO.getUsersDataByLocation(location[0], location[1]);
         }
@@ -308,8 +308,8 @@ public class PeopleTabFragment extends ListFragment {
 	
 	private class UpdatePeopleListTask extends AsyncTask<Double, Integer, UsersResponse> {
         protected UsersResponse doInBackground(Double... location) {
-//        	String url = "http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/users.json"; //PeopleTabFragment.this.getResources().getString(R.string.api_users);
-        	String url = PeopleTabFragment.this.getResources().getString(R.string.api_users_local);
+        	String url = "http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/users.json"; //PeopleTabFragment.this.getResources().getString(R.string.api_users);
+//        	String url = PeopleTabFragment.this.getResources().getString(R.string.api_users_local);
         	IUsersDAO userDAO = new JsonUsersDAO(url);
         	
         	indexOfList = pairedListView.getFirstVisiblePosition();

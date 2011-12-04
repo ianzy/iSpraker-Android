@@ -30,9 +30,9 @@ public class MeTabFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceSate) {
     	super.onActivityCreated(savedInstanceSate);
-    	ListView actionsList = (ListView)this.getActivity().findViewById(R.id.me_actions);
+//    	ListView actionsList = (ListView)this.getActivity().findViewById(R.id.me_actions);
     	// By using setAdpater method in listview we an add string array in list.
-    	actionsList.setAdapter(new ArrayAdapter<String>(this.getActivity(), R.layout.me_actions_item , lv_arr));
+//    	actionsList.setAdapter(new ArrayAdapter<String>(this.getActivity(), R.layout.me_actions_item , lv_arr));
     }
     
 }

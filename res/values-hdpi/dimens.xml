@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bottom_tab_padding_up">4.5dip</dimen>
+    <dimen name="bottom_tab_padding_drawable">2.5dip</dimen>
+    <dimen name="switch_logo_bottom_padding">40.0sp</dimen>
+    <dimen name="square_item_width">60.0dip</dimen>
+    <dimen name="square_padding_left">25.0dip</dimen>
+    <dimen name="square_padding_top">12.0dip</dimen>
+    <dimen name="square_horizontalSpacing">10.0dip</dimen>
+    <dimen name="square_verticalSpacing">0.0dip</dimen>
+    <dimen name="square_page_item_padding">4.0dip</dimen>
+    <dimen name="square_height">293.0dip</dimen>
+    <dimen name="emotion_view_height">220.0dip</dimen>
+    <dimen name="listviewheight">100.0px</dimen>
+    <dimen name="preview_pic_size">120.0px</dimen>
+    <dimen name="emotion_popup_height">108.0dip</dimen>
+    <dimen name="emotion_popup_width">64.0dip</dimen>
+    <dimen name="mBtnEditOrAttend_padding_left">6.0dip</dimen>
+</resources>

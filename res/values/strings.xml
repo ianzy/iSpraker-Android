@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="hello">Hello World, ISprakerAndroidClientActivity!</string>
-    <string name="app_name">ISprakerAndroidClient</string>
+  
+    <string name="hello">Hello World, ISpraker!</string>
+    <string name="app_name">ISpraker</string>
 
     <string name="description_logo">Google I/O 2011</string>
     <string name="description_home">Home</string>
@@ -124,5 +124,15 @@
     
     <string name="api_users_local">http://10.0.2.2:3000/api/9b02756d6564a40dfa6436c3001a1441/users.json</string>
     <string name="api_users">http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/users.json</string>
-        
+    
+   <!-- weibo -->
+    <string name="attention">Follow</string>
+    <string name="fans">Follower</string>    
+    <string name="radio_button_add_to_contact">Add as contact</string>
+    <string name="radio_button_call">Call</string>
+    <string name="radio_button_sms">SMS</string>
+    <string name="radio_button_direct_message">Direct Message</string>
+    <string name="userinfo_person_email">Email:</string>
+	<string name="userinfo_person_description">Description:</string>   
+	<string name="userinfo_reserved">reserved:</string>                  
 </resources>
