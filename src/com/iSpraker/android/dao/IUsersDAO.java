@@ -1,7 +1,5 @@
 package com.iSpraker.android.dao;
 
-import java.util.List;
-
 import com.iSpraker.android.dos.User;
 import com.iSpraker.android.dos.UsersResponse;
 
@@ -14,4 +12,6 @@ public interface IUsersDAO {
 	public UsersResponse getUsersDataByLocation(double lat, double lng, int page);
 	
 	public UsersResponse getUserByUid(String uid);
+	
+	public UsersResponse signUpUser(User user);
 }

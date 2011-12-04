@@ -29,6 +29,7 @@ public class ISprakerAndroidClientActivity extends FragmentActivity implements I
     	LIST, WALL
     }
     private WallMode currentMode;
+    private User currentUser;
     
     @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -78,8 +79,11 @@ public class ISprakerAndroidClientActivity extends FragmentActivity implements I
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.ispraker_home);
+        
+        Bundle b = this.getIntent().getExtras();
+	    currentUser = (User)b.getParcelable("user");
+        
         mTabHost = (TabHost)findViewById(android.R.id.tabhost);
         mTabHost.setup();
 
@@ -252,6 +256,10 @@ public class ISprakerAndroidClientActivity extends FragmentActivity implements I
 	public void onWallModeChange(List<User> users) {
 		this.mData = users;
 		mTabManager.replaceTabFragment("Friends", PeopleTabFragment.class);
+	}
+	
+	public User getCurrentUser() {
+		return this.currentUser;
 	}
     
 }

@@ -13,8 +13,12 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import com.iSpraker.android.R;
+import com.iSpraker.android.dao.IUsersDAO;
+import com.iSpraker.android.dao.impl.JsonUsersDAO;
+import com.iSpraker.android.dos.UsersResponse;
 
 public class LoginActivity extends FragmentActivity {
 	
@@ -26,6 +30,7 @@ public class LoginActivity extends FragmentActivity {
 	
 	private Twitter mTwitter;
 	private RequestToken requestToken;
+	private UsersResponse userResponse;
 	
     @Override
     public void onNewIntent(Intent intent) {
@@ -42,6 +47,39 @@ public class LoginActivity extends FragmentActivity {
 				editor.putString("twitter_access_token", accessToken.getToken());
 				editor.putString("twitter_access_token_secret", accessToken.getTokenSecret());
 				editor.commit();
+				
+				if(this.isUserExist(accessToken)) {
+					// Start the main activity
+					Intent intentMain = new Intent();
+					Bundle b = new Bundle();
+					b.putParcelable("user", userResponse.getUsers().get(0));
+					intentMain.setClassName("com.iSpraker.android", "com.iSpraker.android.app.ISprakerAndroidClientActivity");
+					intentMain.putExtras(b);
+					startActivity(intentMain);
+				} else {
+					if(userResponse.getResponseCode() == 404) {
+						// create user in the backend
+						User user = mTwitter.showUser(accessToken.getUserId());
+						com.iSpraker.android.dos.User newUser = new com.iSpraker.android.dos.User();
+						newUser.setDescription(user.getDescription());
+						newUser.setEmail(user.getScreenName() + "@ispraker.com");
+						newUser.setProfileImageURL(user.getProfileImageURL().toString());
+						newUser.setScreenName(user.getScreenName());
+						newUser.setTimeZone(user.getTimeZone());
+						newUser.setToken(accessToken.getToken());
+						newUser.setTwitterId(user.getName());
+						newUser.setUid(String.valueOf(user.getId()));
+						
+						String url = this.getResources().getString(R.string.api_users_local);
+				    	IUsersDAO userDAO = new JsonUsersDAO(url);
+						int responseCode = userDAO.signUpUser(newUser).getResponseCode();
+						if (responseCode != 200) {
+							Toast.makeText(this, "Something went wrong with the login, please try again later", Toast.LENGTH_LONG);
+					    	setContentView(R.layout.login);
+						}
+					}
+					
+				}
 				
 //				AccessToken accessToken2 = new AccessToken(settings.getString("twitter_access_token", null), settings.getString("twitter_access_token_secret", null));
 //				mTwitter.setOAuthAccessToken(accessToken);
@@ -77,7 +115,21 @@ public class LoginActivity extends FragmentActivity {
 		}
 	}
 	
-	private void isUserExist(AccessToken accessToken) {
-		
+	private boolean isUserExist(AccessToken accessToken) {
+		long uid = accessToken.getUserId();
+//		String url = "http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/users.json"; //PeopleTabFragment.this.getResources().getString(R.string.api_users);
+    	String url = this.getResources().getString(R.string.api_users_local);
+    	IUsersDAO userDAO = new JsonUsersDAO(url);
+		userResponse = userDAO.getUserByUid(String.valueOf(uid));
+		switch(userResponse.getResponseCode()) {
+		case 404:
+			return false;
+		case 200:
+			return true;
+		default:
+	    	Toast.makeText(this, "Something went wrong with the login, please try again later", Toast.LENGTH_LONG);
+	    	setContentView(R.layout.login);
+		}
+		return false;
 	}
 }

@@ -69,6 +69,12 @@ public class JsonUsersDAO extends JsonDAOBase implements IUsersDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		if (client.getResponseCode() != 200) {
+			UsersResponse res = new UsersResponse();
+			res.setResponseCode(client.getResponseCode());
+			return res;
+		}
 
 		JSONObject responseJSON = null;
 		JSONArray data = null;
@@ -85,16 +91,69 @@ public class JsonUsersDAO extends JsonDAOBase implements IUsersDAO {
 		Type usersTypeToken = new TypeToken<List<User>>() {} .getType();
 		Type pagingTypeToken = new TypeToken<Paging>() {} .getType();
 		UsersResponse response = new UsersResponse((List<User>)jsonSerDes.fromJson(data.toString(), usersTypeToken),
-				(Paging)jsonSerDes.fromJson(paging.toString(), pagingTypeToken));
+				(Paging)jsonSerDes.fromJson(paging.toString(), pagingTypeToken), client.getResponseCode());
 		
 		return response;
 	}
 
 	@Override
 	public UsersResponse getUserByUid(String uid) {
+		String userUrl = this.baseUrl.split(".json")[0];
+		userUrl = userUrl + "/" + uid + ".json";
+		this.client.setUrl(userUrl);
 		
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			client.Execute(RestfulClient.RequestMethod.GET);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if (client.getResponseCode() != 200) {
+			UsersResponse res = new UsersResponse();
+			res.setResponseCode(client.getResponseCode());
+			return res;
+		}
+		
+		JSONObject responseJSON = null;
+		JSONArray data = null;
+		try {
+			responseJSON = new JSONObject(client.getResponse());
+			data = responseJSON.getJSONArray("data");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Type usersTypeToken = new TypeToken<List<User>>() {} .getType();
+		UsersResponse response = new UsersResponse((List<User>)jsonSerDes.fromJson(data.toString(), usersTypeToken),
+				null, client.getResponseCode());
+		
+		return response;
+	}
+
+	@Override
+	public UsersResponse signUpUser(User user) {
+		this.client.setUrl(this.baseUrl);
+		
+		// add user information
+		this.client.AddParamForModel("user", "description", user.getDescription());
+		this.client.AddParamForModel("user", "email", user.getEmail());
+//		this.client.AddParamForModel("user", "phone_number", user.getPhoneNumber());
+		this.client.AddParamForModel("user", "profile_image_url", user.getProfileImageURL());
+		this.client.AddParamForModel("user", "screen_name", user.getScreenName());
+		this.client.AddParamForModel("user", "time_zone", user.getTimeZone());
+		this.client.AddParamForModel("user", "token", user.getToken());
+//		this.client.AddParamForModel("user", "twitter_id", user.getTwitterId());
+		this.client.AddParamForModel("user", "uid", user.getUid());
+		
+		try {
+			client.Execute(RestfulClient.RequestMethod.POST);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		UsersResponse response = new UsersResponse();
+		response.setResponseCode(this.client.getResponseCode());
+		return response;
 	}
 
 }

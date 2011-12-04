@@ -8,7 +8,7 @@
                     <ImageView android:id="@id/ivPortrait" android:layout_width="fill_parent" android:layout_height="fill_parent" android:src="@drawable/portrait" />
                     <ImageView android:layout_width="fill_parent" android:layout_height="fill_parent" android:src="@drawable/portrait_round" />
                 </FrameLayout>
-                <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="#ff202020" android:gravity="top" android:id="@id/tvNick" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.669983dip" android:layout_marginTop="18.669983dip" android:layout_toRightOf="@id/lyPortrait" />
+                <TextView android:textSize="16.0sp" android:textStyle="bold" android:textColor="#ff202020" android:gravity="top" android:id="@+id/me_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.669983dip" android:layout_marginTop="18.669983dip" android:layout_toRightOf="@id/lyPortrait" />
                 <ImageView android:id="@id/ivGental" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.669983dip" android:src="@drawable/icon_male" android:layout_toRightOf="@id/lyPortrait" android:layout_below="@id/tvNick" android:layout_centerVertical="true" />
                 <Button android:textColor="#ffffffff" android:id="@id/bnEdit" android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="12.669983dip" android:layout_marginBottom="8.0dip" android:layout_alignParentRight="true" android:layout_alignParentBottom="true" android:layout_centerVertical="true" />
             </RelativeLayout>

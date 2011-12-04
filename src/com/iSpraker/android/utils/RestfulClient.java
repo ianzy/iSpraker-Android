@@ -63,6 +63,11 @@ public class RestfulClient {
     {
         params.add(new BasicNameValuePair(name, value));
     }
+    
+    public void AddParamForModel(String model, String name, String value) {
+    	String paramName = model + "[" + name + "]";
+    	params.add(new BasicNameValuePair(paramName, value));
+    }
 
     public void AddHeader(String name, String value)
     {
