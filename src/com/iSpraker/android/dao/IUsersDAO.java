@@ -14,4 +14,6 @@ public interface IUsersDAO {
 	public UsersResponse getUserByUid(String uid);
 	
 	public UsersResponse signUpUser(User user);
+	
+	public UsersResponse updateLocation(double lat, double lng, User user);
 }

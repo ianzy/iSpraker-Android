@@ -113,7 +113,7 @@ public class PeopleWallFragment extends Fragment {
        protected UsersResponse doInBackground(Double... location) {
        	//String url = "http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/users.json"; //PeopleTabFragment.this.getResources().getString(R.string.api_users);
        	String url = getResources().getString(R.string.api_users_local);
-       	IUsersDAO userDAO = new JsonUsersDAO(url);
+       	IUsersDAO userDAO = new JsonUsersDAO(url, PeopleWallFragment.this.getActivity());
        	return userDAO.getUsersDataByLocation(location[0], location[1]);
        }
 

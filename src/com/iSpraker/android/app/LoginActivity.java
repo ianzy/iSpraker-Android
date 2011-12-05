@@ -6,7 +6,6 @@ import twitter4j.TwitterFactory;
 import twitter4j.User;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -14,7 +13,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.widget.Toast;
 
@@ -74,7 +72,7 @@ public class LoginActivity extends FragmentActivity {
 						newUser.setUid(String.valueOf(user.getId()));
 						
 						String url = this.getResources().getString(R.string.api_users_local);
-				    	IUsersDAO userDAO = new JsonUsersDAO(url);
+				    	IUsersDAO userDAO = new JsonUsersDAO(url, this);
 						int responseCode = userDAO.signUpUser(newUser).getResponseCode();
 						if (responseCode != 200) {
 							Toast.makeText(this, "Something went wrong with the login, please try again later", Toast.LENGTH_LONG);
@@ -140,7 +138,7 @@ public class LoginActivity extends FragmentActivity {
 		long uid = accessToken.getUserId();
 //		String url = "http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/users.json"; //PeopleTabFragment.this.getResources().getString(R.string.api_users);
     	String url = this.getResources().getString(R.string.api_users_local);
-    	IUsersDAO userDAO = new JsonUsersDAO(url);
+    	IUsersDAO userDAO = new JsonUsersDAO(url, this);
 		userResponse = userDAO.getUserByUid(String.valueOf(uid));
 		switch(userResponse.getResponseCode()) {
 		case 404:

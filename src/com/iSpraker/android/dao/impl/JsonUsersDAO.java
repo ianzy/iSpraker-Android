@@ -7,6 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+
 import com.google.gson.reflect.TypeToken;
 import com.iSpraker.android.dao.IUsersDAO;
 import com.iSpraker.android.dos.Paging;
@@ -18,8 +20,8 @@ public class JsonUsersDAO extends JsonDAOBase implements IUsersDAO {
 	
 	private String baseUrl;
 
-	public JsonUsersDAO(String url) {
-		super(url);
+	public JsonUsersDAO(String url, Context context) {
+		super(url, context);
 		this.baseUrl = url;
 	}
 
@@ -146,6 +148,25 @@ public class JsonUsersDAO extends JsonDAOBase implements IUsersDAO {
 //		this.client.AddParamForModel("user", "twitter_id", user.getTwitterId());
 		this.client.AddParamForModel("user", "uid", user.getUid());
 		
+		try {
+			client.Execute(RestfulClient.RequestMethod.POST);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		UsersResponse response = new UsersResponse();
+		response.setResponseCode(this.client.getResponseCode());
+		return response;
+	}
+
+	@Override
+	public UsersResponse updateLocation(double lat, double lng, User user) {
+		String userUrl = this.baseUrl.split(".json")[0];
+		userUrl = userUrl + "/" + user.getUid() + "/location.json";
+		this.client.setUrl(userUrl);
+		
+		this.client.AddParamForModel("user", "lat", jsonSerDes.toJson(lat));
+		this.client.AddParamForModel("user", "lng", jsonSerDes.toJson(lng));
+		client.AddParam("_method", "put");
 		try {
 			client.Execute(RestfulClient.RequestMethod.POST);
 		} catch (Exception e) {
