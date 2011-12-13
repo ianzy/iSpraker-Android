@@ -1,6 +1,7 @@
 package com.iSpraker.android.app;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 import android.content.Context;
@@ -9,14 +10,18 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.support.v4.view.MenuItem.OnMenuItemClickListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
@@ -26,14 +31,23 @@ import android.widget.TextView;
 import com.iSpraker.android.R;
 import com.iSpraker.android.dao.IUsersDAO;
 import com.iSpraker.android.dao.impl.JsonUsersDAO;
+import com.iSpraker.android.dos.Paging;
 import com.iSpraker.android.dos.User;
 import com.iSpraker.android.dos.UsersResponse;
 import com.iSpraker.android.utils.NetworkHelper;
 
-public class PeopleWallFragment extends Fragment {
+public class PeopleWallFragment extends Fragment implements OnScrollListener {
 	
 	private PhotoWallAdapter adapter;
 	private GridView gridview;
+	private Paging pagingInfo;
+	private double lat = Double.NaN;
+	private double lng = Double.NaN;
+	private boolean updatingList = false;
+	private int indexOfGrid = -1;
+	
+	private boolean enableListMode = true;
+	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,10 +69,20 @@ public class PeopleWallFragment extends Fragment {
 			//use data from the activity and populate the adapter
 	        IPeopleWallCallbacks callback = (IPeopleWallCallbacks)getActivity();
 	        adapter = new PhotoWallAdapter(callback.getUsers());
+	        this.lat = callback.getLat();
+	        this.lng = callback.getLng();
+	        this.indexOfGrid = callback.getWallIndex();
+	        this.pagingInfo = callback.getPaging();
 		}
 		
 		gridview = (GridView) getActivity().findViewById(R.id.people_wall);
         gridview.setAdapter(adapter);
+        
+        gridview.setOnScrollListener(this);
+        if(this.indexOfGrid != -1) {
+        	gridview.setSelection(this.indexOfGrid);
+        }
+        
         gridview.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
@@ -76,55 +100,106 @@ public class PeopleWallFragment extends Fragment {
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-    	menu.add("ListMode")
+		MenuItem listModeItem = menu.add("ListMode")
 		.setIcon(R.drawable.ic_action_list)
 		.setOnMenuItemClickListener(new OnMenuItemClickListener() {
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
 				IPeopleWallCallbacks callback = (IPeopleWallCallbacks)getActivity();
-				callback.onWallModeChange(adapter.mData);
+				callback.onWallModeChange(adapter.mData, lat, lng, indexOfGrid, pagingInfo);
 				return true;
 			}
 			
-		})
-		.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+		});
+		listModeItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+		listModeItem.setEnabled(this.enableListMode);
     }
 	
-	private class DownloadImageTask extends AsyncTask<Void, Void, Void> {
-	     protected Void doInBackground(Void... urls) {
-	    	for(User e : adapter.mData) {
-	        	if(!e.getProfileImageURL().equals("")) {
-	            	Bitmap img = NetworkHelper.fetchImage(e.getProfileImageURL());
-	            	if(img != null) {
-	            		e.setProfileImage(img);
-	            	}
-	        	}
-	        		
-	        }
-			return null;
+	private void setMenuItemEnable(boolean enable) {
+		this.enableListMode = enable;
+	    ((FragmentActivity)this.getActivity()).invalidateOptionsMenu();
+	}
+	
+	private class DownloadImageTask extends AsyncTask<Void, Void, Hashtable<String, Bitmap>> {
+	     protected Hashtable<String, Bitmap> doInBackground(Void... urls) {
+	    	 Log.i("---------------------------------------", ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>inside my head2");
+	    	 Hashtable<String, Bitmap> profileImgs = new Hashtable<String, Bitmap>();
+	    	 for(User e : adapter.mData) {
+	    		 if(!e.getProfileImageURL().equals("") && e.getProfileImage() == null) {
+	    			 Bitmap img = NetworkHelper.fetchImage(e.getProfileImageURL());
+	    			 profileImgs.put(e.getUid(), img);
+//		    			 if(img != null) {
+//		    				 e.setProfileImage(img);
+//		            	 }
+	        	 }	
+	    	 }
+	    	 
+	    	 return profileImgs;
 	     }
 
-	     protected void onPostExecute(Void result) {
+	     protected void onPostExecute(Hashtable<String, Bitmap> profileImgs) {
+	    	 for(User e : adapter.mData) {
+	    		 if(!e.getProfileImageURL().equals("") && e.getProfileImage() == null) {
+	    			 e.setProfileImage(profileImgs.get(e.getUid()));
+	    		 }
+	    	 }
 	    	 adapter.notifyDataSetInvalidated();
+	    	 setMenuItemEnable(true);
+	    	 updatingList = false;
 	     }
-	 }
+	}
    
-   private class RefreshPeopleWallTask extends AsyncTask<Double, Integer, UsersResponse> {
+   
+	private class RefreshPeopleListTask extends AsyncTask<Double, Integer, UsersResponse> {
        protected UsersResponse doInBackground(Double... location) {
-       	//String url = "http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/users.json"; //PeopleTabFragment.this.getResources().getString(R.string.api_users);
-       	String url = getResources().getString(R.string.api_users_local);
+//       	String url = "http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/users.json"; //PeopleTabFragment.this.getResources().getString(R.string.api_users);
+       	String url = PeopleWallFragment.this.getResources().getString(R.string.api_users_local);
        	IUsersDAO userDAO = new JsonUsersDAO(url, PeopleWallFragment.this.getActivity());
        	return userDAO.getUsersDataByLocation(location[0], location[1]);
        }
 
        protected void onPostExecute(UsersResponse usersResponse) {
        	adapter.mData = new ArrayList<User>();
-       	adapter.notifyDataSetChanged();
        	for(User e : usersResponse.getUsers()) {
        		adapter.addItem(e);
        	}
+       	adapter.notifyDataSetChanged();
+       	
+       	// reset paging information
+       	pagingInfo = usersResponse.getPaging();
        	
        	new DownloadImageTask().execute();
+       	super.onPostExecute(usersResponse);
+       }
+   }
+	
+	private class UpdatePeopleListTask extends AsyncTask<Double, Integer, UsersResponse> {
+       protected UsersResponse doInBackground(Double... location) {
+//       	String url = "http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/users.json"; //PeopleTabFragment.this.getResources().getString(R.string.api_users);
+       	String url = PeopleWallFragment.this.getResources().getString(R.string.api_users_local);
+       	IUsersDAO userDAO = new JsonUsersDAO(url, PeopleWallFragment.this.getActivity());
+       	
+       	return userDAO.getUsersDataByLocation(location[0], location[1], pagingInfo.getCurrentPage()+1);
+       }
+
+       protected void onPostExecute(UsersResponse usersResponse) {
+       	
+       	if(usersResponse.getUsers().size() != 0) {
+	        	for(User e : usersResponse.getUsers()) {
+	        		adapter.addItem(e);
+	        	}
+	        	adapter.notifyDataSetChanged();
+	        	
+	        	// update paging information
+	        	pagingInfo = usersResponse.getPaging();
+	        	
+	        	new DownloadImageTask().execute();
+	        	
+	        	gridview.setSelection(indexOfGrid);
+       	} else {
+       		setMenuItemEnable(true);
+       	}
+       	
        	super.onPostExecute(usersResponse);
        }
    }
@@ -144,7 +219,7 @@ public class PeopleWallFragment extends Fragment {
         }
  
         public void addItem(final User user) {
-            mData.add(0,user);
+            mData.add(user);
             notifyDataSetChanged();
         }
  
@@ -185,4 +260,26 @@ public class PeopleWallFragment extends Fragment {
         public TextView name;
         public ImageView profileImage;
     }
+
+	@Override
+	public void onScroll(AbsListView view, int firstVisibleItem,
+			int visibleItemCount, int totalItemCount) {
+		boolean loadMore = firstVisibleItem + visibleItemCount >= totalItemCount;
+		
+        if(loadMore) {
+        	if (lat != Double.NaN && lng != Double.NaN && adapter.mData != null && pagingInfo != null && this.updatingList == false) {
+        		Log.i("---------------------------------------", ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>inside my head");
+        		this.updatingList = true;
+        		this.indexOfGrid = gridview.getFirstVisiblePosition();
+        		setMenuItemEnable(false);
+				new UpdatePeopleListTask().execute(lat, lng);
+			}
+        }		
+	}
+
+	@Override
+	public void onScrollStateChanged(AbsListView view, int scrollState) {
+		// TODO Auto-generated method stub
+		
+	}
 }

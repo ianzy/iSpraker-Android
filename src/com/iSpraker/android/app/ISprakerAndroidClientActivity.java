@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
-import android.support.v4.view.MenuItem.OnMenuItemClickListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,12 +18,20 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.iSpraker.android.R;
+import com.iSpraker.android.dos.Paging;
 import com.iSpraker.android.dos.User;
 
 public class ISprakerAndroidClientActivity extends FragmentActivity implements IPeopleTabCallbacks, IPeopleWallCallbacks {
     private TabHost mTabHost;
     private TabManager mTabManager;
+    
     private List<User> mData;
+    private double lat;
+    private double lng;
+    private int indexOfList;
+    private int indexOfGrid;
+    private Paging pagingInfo;
+    
     public enum WallMode {
     	LIST, WALL
     }
@@ -244,8 +251,12 @@ public class ISprakerAndroidClientActivity extends FragmentActivity implements I
         }
     }
 
-	public void onListModeChange(List<User> users) {
+	public void onListModeChange(List<User> users, double lat, double lng, int listIndex, Paging pagingInfo) {
 		this.mData = users;
+		this.lat = lat;
+		this.lng = lng;
+		this.indexOfList = listIndex;
+		this.pagingInfo = pagingInfo;
 		mTabManager.replaceTabFragment("Friends", PeopleWallFragment.class);
 	}
 
@@ -253,13 +264,43 @@ public class ISprakerAndroidClientActivity extends FragmentActivity implements I
 		return this.mData;
 	}
 
-	public void onWallModeChange(List<User> users) {
+	public void onWallModeChange(List<User> users, double lat, double lng, int wallIndex, Paging pagingInfo) {
 		this.mData = users;
+		this.lat = lat;
+		this.lng = lng;
+		this.indexOfGrid = wallIndex;
+		this.pagingInfo = pagingInfo;
 		mTabManager.replaceTabFragment("Friends", PeopleTabFragment.class);
 	}
 	
 	public User getCurrentUser() {
 		return this.currentUser;
+	}
+
+	@Override
+	public int getWallIndex() {
+		return this.indexOfGrid;
+	}
+
+	@Override
+	public int getListIndex() {
+		return this.indexOfList;
+	}
+
+	@Override
+	public double getLat() {
+		return this.lat;
+	}
+
+	@Override
+	public double getLng() {
+		return this.lng;
+	}
+
+	@Override
+	public Paging getPaging() {
+		// TODO Auto-generated method stub
+		return pagingInfo;
 	}
     
 }
