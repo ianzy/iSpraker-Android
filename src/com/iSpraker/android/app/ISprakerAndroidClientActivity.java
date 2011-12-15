@@ -96,12 +96,15 @@ public class ISprakerAndroidClientActivity extends FragmentActivity implements I
 
         mTabManager = new TabManager(this, mTabHost, R.id.realtabcontent);
 
-        View tabView = createTabView(mTabHost.getContext(), "Events", getResources().getDrawable(R.drawable.ic_tab_events));
-        mTabManager.addTab(mTabHost.newTabSpec("Events").setIndicator(tabView),
-        		PeopleTabFragment.class, null);
+        View tabView = createTabView(mTabHost.getContext(), "Conversations", getResources().getDrawable(R.drawable.ic_tab_timeline));
+        mTabManager.addTab(mTabHost.newTabSpec("Conversations").setIndicator(tabView),
+        		HashTagsFragment.class, null);
         tabView = createTabView(mTabHost.getContext(), "Friends", getResources().getDrawable(R.drawable.ic_tab_friends));
         mTabManager.addTab(mTabHost.newTabSpec("Friends").setIndicator(tabView),
                 PeopleTabFragment.class, null);
+        tabView = createTabView(mTabHost.getContext(), "Events", getResources().getDrawable(R.drawable.ic_tab_events));
+        mTabManager.addTab(mTabHost.newTabSpec("Events").setIndicator(tabView),
+        		NearByFragment.class, null);
         tabView = createTabView(mTabHost.getContext(), "Me", getResources().getDrawable(R.drawable.ic_tab_me));
         mTabManager.addTab(mTabHost.newTabSpec("Me").setIndicator(tabView),
         		MeTabFragment.class, null);
@@ -116,8 +119,8 @@ public class ISprakerAndroidClientActivity extends FragmentActivity implements I
 
     private View createTabView(final Context context, final String tag, final Drawable img) {
     	View view = LayoutInflater.from(context).inflate(R.layout.tab_view, null);
-    	TextView tv = (TextView) view.findViewById(R.id.tabText);
-    	tv.setText(tag);
+//    	TextView tv = (TextView) view.findViewById(R.id.tabText);
+//    	tv.setText(tag);
     	ImageView imgv = (ImageView) view.findViewById(R.id.tabImage);
     	imgv.setImageDrawable(img);
     	return view;
