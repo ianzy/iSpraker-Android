@@ -57,8 +57,9 @@ public class LoginActivity extends FragmentActivity {
 					intentMain.setClassName("com.iSpraker.android", "com.iSpraker.android.app.ISprakerAndroidClientActivity");
 					intentMain.putExtras(b);
 					startActivity(intentMain);
+					this.finish();
 				} else {
-					if(userResponse.getResponseCode() == 404) {
+					if(userResponse.getResponseCode() == 404 || userResponse.getResponseCode() == 403) {
 						// create user in the backend
 						User user = mTwitter.showUser(accessToken.getUserId());
 						com.iSpraker.android.dos.User newUser = new com.iSpraker.android.dos.User();
@@ -125,6 +126,7 @@ public class LoginActivity extends FragmentActivity {
 		        }
 
 		    });
+			
 			setContentView(twitterSite);
 //			InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 //			imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
@@ -142,6 +144,8 @@ public class LoginActivity extends FragmentActivity {
 		userResponse = userDAO.getUserByUid(String.valueOf(uid));
 		switch(userResponse.getResponseCode()) {
 		case 404:
+			return false;
+		case 403:
 			return false;
 		case 200:
 			return true;

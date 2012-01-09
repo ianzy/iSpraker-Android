@@ -123,7 +123,9 @@
     <string name="decline">Decline</string>
     
     <string name="api_users_local">http://10.0.2.2:3000/api/9b02756d6564a40dfa6436c3001a1441/users.json</string>
-    <string name="api_users">http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/users.json</string>
+    <string name="api_hash_tags_local">http://10.0.2.2:3000/api/9b02756d6564a40dfa6436c3001a1441/hash_tags.json</string>
+    <string name="api_hash_tags">http://ispraker.heroku.com/api/9b02756d6564a40dfa6436c3001a1441/hash_tags.json</string>
+    <string name="api_users">http://ispraker.heroku.com/api/9b02756d6564a40dfa6436c3001a1441/users.json</string>
     
    <!-- weibo -->
     <string name="attention">Follow</string>

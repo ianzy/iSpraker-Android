@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content" 
+	android:padding="5dp" 
+	>
+
+    <ImageView
+        android:id="@+id/hash_tag_content_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/default_profile_3_normal" />
+
+    <TextView
+        android:id="@+id/hash_tag_content_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/hash_tag_content_profile"
+        android:text="Name" 
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <TextView
+        android:id="@+id/hash_tag_content_tweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/hash_tag_content_name"
+        android:layout_below="@+id/hash_tag_content_name"
+        android:text="content" />
+
+    <TextView
+        android:id="@+id/hash_tag_content_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="time" />
+	
+</RelativeLayout>

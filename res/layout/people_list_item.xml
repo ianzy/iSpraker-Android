@@ -3,8 +3,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" 
     android:padding="5dp" 
-    android:background="@drawable/list_item_bg">
-
+    >
+<!-- android:background="@drawable/list_item_bg" -->
     <ImageView
         android:id="@+id/profile_image"
         android:layout_width="60dp"

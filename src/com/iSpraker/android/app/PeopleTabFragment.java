@@ -21,7 +21,6 @@ import android.support.v4.app.ListFragment;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.support.v4.view.MenuItem.OnMenuItemClickListener;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
@@ -33,7 +32,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.iSpraker.android.R;
 import com.iSpraker.android.dao.IUsersDAO;
@@ -54,8 +52,8 @@ public class PeopleTabFragment extends ListFragment implements OnScrollListener 
 	private PullToRefreshListView pairedListView;
 	
 	private Paging pagingInfo;
-	private double lat = Double.NaN;
-	private double lng = Double.NaN;
+	private double lat = Double.POSITIVE_INFINITY;
+	private double lng = Double.POSITIVE_INFINITY;
 	private boolean updatingList = false;
 	private boolean enableWallMode = true;
 	
@@ -129,8 +127,8 @@ public class PeopleTabFragment extends ListFragment implements OnScrollListener 
     	pairedListView = (PullToRefreshListView)this.getListView();
     	
     	// set show more list footer
-    	View footerView = ((LayoutInflater)this.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.list_footer, null, false);
-    	pairedListView.addFooterView(footerView);
+//    	View footerView = ((LayoutInflater)this.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.list_footer, null, false);
+//    	pairedListView.addFooterView(footerView);
     	
     	// set on scroll listener
     	pairedListView.setOnScrollListener(this);
@@ -255,6 +253,9 @@ public class PeopleTabFragment extends ListFragment implements OnScrollListener 
 //			    Log.i("---------------------------------------", ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>here");
 			    PeopleTabFragment.this.lat = lat;
 			    PeopleTabFragment.this.lng = lng;
+			    
+			    ((ISprakerAndroidClientActivity)PeopleTabFragment.this.getActivity()).setLat(lat);
+			    ((ISprakerAndroidClientActivity)PeopleTabFragment.this.getActivity()).setLng(lng);
 			    
 			  	locationManager.removeUpdates(this);
 			  	new RefreshPeopleListTask().execute(lat, lng);
@@ -458,7 +459,7 @@ public class PeopleTabFragment extends ListFragment implements OnScrollListener 
 			int visibleItemCount, int totalItemCount) { 
         boolean loadMore = firstVisibleItem + visibleItemCount >= totalItemCount;
 
-        if(loadMore) {
+        if(pagingInfo != null && loadMore && pagingInfo.getCurrentPage() < pagingInfo.getNumPages()) {
         	if (lat != Double.NaN && lng != Double.NaN && adapter.mData != null && pagingInfo != null && this.updatingList == false) {
         		this.updatingList = true;
         		this.indexOfList = pairedListView.getFirstVisiblePosition();

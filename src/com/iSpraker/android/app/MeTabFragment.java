@@ -1,5 +1,6 @@
 package com.iSpraker.android.app;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -53,7 +54,10 @@ public class MeTabFragment extends Fragment {
 
 	    protected void onPostExecute(Bitmap result) {
 	    	if (result != null) {
-	    		((ImageView)MeTabFragment.this.getActivity().findViewById(R.id.ivPortrait)).setImageBitmap(result);
+	    		Activity container = MeTabFragment.this.getActivity();
+	    		if (container != null) {
+	    			((ImageView)container.findViewById(R.id.ivPortrait)).setImageBitmap(result);
+	    		}
 	    	}
 	    }
 	 }

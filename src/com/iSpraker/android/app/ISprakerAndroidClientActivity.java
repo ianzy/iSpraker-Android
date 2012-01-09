@@ -26,9 +26,9 @@ public class ISprakerAndroidClientActivity extends FragmentActivity implements I
     private TabManager mTabManager;
     
     private List<User> mData;
-    private double lat;
-    private double lng;
-    private int indexOfList;
+    private double lat = Double.POSITIVE_INFINITY;
+    private double lng = Double.POSITIVE_INFINITY;
+	private int indexOfList;
     private int indexOfGrid;
     private Paging pagingInfo;
     
@@ -298,6 +298,14 @@ public class ISprakerAndroidClientActivity extends FragmentActivity implements I
 	@Override
 	public double getLng() {
 		return this.lng;
+	}
+	
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+
+	public void setLng(double lng) {
+		this.lng = lng;
 	}
 
 	@Override

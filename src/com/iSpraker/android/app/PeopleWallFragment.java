@@ -41,8 +41,8 @@ public class PeopleWallFragment extends Fragment implements OnScrollListener {
 	private PhotoWallAdapter adapter;
 	private GridView gridview;
 	private Paging pagingInfo;
-	private double lat = Double.NaN;
-	private double lng = Double.NaN;
+	private double lat = Double.POSITIVE_INFINITY;
+	private double lng = Double.POSITIVE_INFINITY;
 	private boolean updatingList = false;
 	private int indexOfGrid = -1;
 	
@@ -266,8 +266,8 @@ public class PeopleWallFragment extends Fragment implements OnScrollListener {
 			int visibleItemCount, int totalItemCount) {
 		boolean loadMore = firstVisibleItem + visibleItemCount >= totalItemCount;
 		
-        if(loadMore) {
-        	if (lat != Double.NaN && lng != Double.NaN && adapter.mData != null && pagingInfo != null && this.updatingList == false) {
+        if(pagingInfo != null && loadMore && pagingInfo.getCurrentPage() < pagingInfo.getNumPages()) {
+        	if (lat != Double.POSITIVE_INFINITY && lng != Double.POSITIVE_INFINITY && adapter.mData != null && pagingInfo != null && this.updatingList == false) {
         		Log.i("---------------------------------------", ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>inside my head");
         		this.updatingList = true;
         		this.indexOfGrid = gridview.getFirstVisiblePosition();

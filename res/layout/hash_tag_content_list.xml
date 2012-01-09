@@ -3,12 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-<!-- 	<include layout="@layout/actionbar" /> -->
-	<!-- <ListView android:id="@id/android:list"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"	/> -->
 	<com.markupartist.android.widget.PullToRefreshListView
-	    android:id="@+id/android:list"
+	    android:id="@+id/hash_tag_content_list"
 	    android:layout_height="fill_parent"
 	    android:layout_width="fill_parent" 
 	    android:dividerHeight="0.5dp"
