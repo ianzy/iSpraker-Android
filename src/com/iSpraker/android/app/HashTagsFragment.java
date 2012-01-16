@@ -133,7 +133,7 @@ public class HashTagsFragment extends ListFragment {
 	private class RefreshHashTagsListTask extends AsyncTask<Double, Integer, HashTagsResponse> {
         protected HashTagsResponse doInBackground(Double... location) {
 //        	String url = "http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/hash_tags.json"; //PeopleTabFragment.this.getResources().getString(R.string.api_users);
-        	String url = HashTagsFragment.this.getResources().getString(R.string.api_hash_tags_local);
+        	String url = HashTagsFragment.this.getResources().getString(R.string.api_hash_tags);
         	IHashTagsDAO hashTagsDAO = new JsonHashTagsDAO(url, HashTagsFragment.this.getActivity());
         	return hashTagsDAO.getHashTagsByLocation(location[0], location[1]);
         }

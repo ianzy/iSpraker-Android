@@ -25,8 +25,8 @@ public class LoginActivity extends FragmentActivity {
 	
 	public static final String PREFS_NAME = "PrefsFile";
 	
-	private static final String CONSUMER_KEY="AOMdfPY2WZ2vFNeOjVGQdw";
-	private static final String CONSUMER_SECRET="kBPBoZCRFOOktU8BHOt6isDDOCDgIGy64VbzrzaKo";
+	private static final String CONSUMER_KEY="TCIaruKKUzfX2u8Xhg";
+	private static final String CONSUMER_SECRET="NAWrtBM7Vw8LZzeEkeyiLnEEY00fUjWYXmdX9tJkA";
 	private static final String CALLBACK_URL="ispraker:///";
 	
 	private Twitter mTwitter;
@@ -59,7 +59,7 @@ public class LoginActivity extends FragmentActivity {
 					startActivity(intentMain);
 					this.finish();
 				} else {
-					if(userResponse.getResponseCode() == 404 || userResponse.getResponseCode() == 403) {
+					if(userResponse.getResponseCode() == 404) {
 						// create user in the backend
 						User user = mTwitter.showUser(accessToken.getUserId());
 						com.iSpraker.android.dos.User newUser = new com.iSpraker.android.dos.User();
@@ -72,13 +72,17 @@ public class LoginActivity extends FragmentActivity {
 						newUser.setTwitterId(user.getName());
 						newUser.setUid(String.valueOf(user.getId()));
 						
-						String url = this.getResources().getString(R.string.api_users_local);
+//						String url = "http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/users.json";
+						String url = this.getResources().getString(R.string.api_users);
 				    	IUsersDAO userDAO = new JsonUsersDAO(url, this);
 						int responseCode = userDAO.signUpUser(newUser).getResponseCode();
 						if (responseCode != 200) {
 							Toast.makeText(this, "Something went wrong with the login, please try again later", Toast.LENGTH_LONG);
 					    	setContentView(R.layout.login);
 						}
+					} else {
+						Toast.makeText(this, "Something went wrong with the login, please try again later", Toast.LENGTH_LONG);
+				    	setContentView(R.layout.login);
 					}
 					
 				}
@@ -109,7 +113,7 @@ public class LoginActivity extends FragmentActivity {
         try {
 			requestToken= mTwitter.getOAuthRequestToken(CALLBACK_URL);
 			WebView twitterSite = new WebView(this);
-			twitterSite.loadUrl(requestToken.getAuthenticationURL());
+			twitterSite.loadUrl(requestToken.getAuthorizationURL());
 			twitterSite.requestFocus(View.FOCUS_DOWN);
 			twitterSite.setOnTouchListener(new View.OnTouchListener() {
 		        @Override
@@ -139,20 +143,19 @@ public class LoginActivity extends FragmentActivity {
 	private boolean isUserExist(AccessToken accessToken) {
 		long uid = accessToken.getUserId();
 //		String url = "http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/users.json"; //PeopleTabFragment.this.getResources().getString(R.string.api_users);
-    	String url = this.getResources().getString(R.string.api_users_local);
+    	String url = this.getResources().getString(R.string.api_users);
     	IUsersDAO userDAO = new JsonUsersDAO(url, this);
 		userResponse = userDAO.getUserByUid(String.valueOf(uid));
 		switch(userResponse.getResponseCode()) {
 		case 404:
 			return false;
-		case 403:
-			return false;
+// invalid token
+//		case 403:
+//			return false;
 		case 200:
 			return true;
 		default:
-	    	Toast.makeText(this, "Something went wrong with the login, please try again later", Toast.LENGTH_LONG);
-	    	setContentView(R.layout.login);
+	    	return false;
 		}
-		return false;
 	}
 }

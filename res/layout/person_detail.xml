@@ -39,6 +39,11 @@
                         <TextView android:textSize="16.0sp" android:textColor="#ff373737" android:gravity="center_vertical" android:id="@id/tvSelf_Introduce_content" android:paddingRight="5.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dip" android:layout_marginTop="12.0dip" android:layout_marginBottom="12.0dip" android:layout_toRightOf="@id/tvSelf_Introduce" android:layout_centerVertical="true" />
                     </RelativeLayout>
                 </RelativeLayout>
+                
+                <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="12.599976dip" android:layout_marginTop="8.0dip" android:layout_marginRight="12.599976dip" android:layout_marginBottom="8.0dip">
+                	<Button android:text="Say Hi" android:id="@+id/say_hi" android:background="@drawable/green_button" style="@style/ButtonText" android:layout_width="match_parent" android:onClick="onSayHiClicked"></Button>    
+                </LinearLayout>
+                
                 <RelativeLayout android:layout_width="fill_parent" android:layout_height="@dimen/userinfo_center_square_height" android:layout_marginLeft="12.599976dip" android:layout_marginTop="8.0dip" android:layout_marginRight="12.599976dip" android:layout_marginBottom="8.0dip">
                     <View android:id="@id/vVDivider1" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_centerHorizontal="true" />
                     <View android:id="@id/vHDivider2" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_centerVertical="true" />
@@ -50,7 +55,7 @@
                         
                         <TextView android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/tvWeibo" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/radio_button_sms" style="@style/userinfo_panel_textview_title" />
                     </LinearLayout>
-                    <LinearLayout android:orientation="vertical" android:id="@id/llFans" android:background="@drawable/bg_panel_below_left" android:clickable="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_toLeftOf="@id/vVDivider1" android:layout_below="@id/vHDivider2" android:layout_alignParentLeft="true" android:layout_alignParentBottom="true" style="@style/userinfo_square_cell">
+                    <LinearLayout android:orientation="vertical" android:id="@id/llFans" android:background="@drawable/bg_panel_below_left" android:clickable="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_toLeftOf="@id/vVDivider1" android:layout_below="@id/vHDivider2" android:layout_alignParentLeft="true" android:layout_alignParentBottom="true" style="@style/userinfo_square_cell" android:onClick="onDirectMessagesClicked">
                         <TextView android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/tvFans" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/radio_button_direct_message" style="@style/userinfo_panel_textview_title" />
                     </LinearLayout>
                     <LinearLayout android:orientation="vertical" android:id="@id/llTopic" android:background="@drawable/bg_panel_below_right" android:clickable="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_toRightOf="@id/vVDivider1" android:layout_below="@id/vHDivider2" android:layout_alignParentRight="true" android:layout_alignParentBottom="true" style="@style/userinfo_square_cell">

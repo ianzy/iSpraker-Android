@@ -5,14 +5,15 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import twitter4j.Query;
-import twitter4j.QueryResult;
-import twitter4j.Tweet;
+import twitter4j.DirectMessage;
+import twitter4j.ResponseList;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.auth.AccessToken;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -25,26 +26,29 @@ import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.iSpraker.android.R;
+import com.iSpraker.android.dos.HashTag;
 import com.iSpraker.android.utils.NetworkHelper;
 import com.markupartist.android.widget.PullToRefreshListView;
 import com.markupartist.android.widget.PullToRefreshListView.OnRefreshListener;
 
-public class HashTagContentActivity extends FragmentActivity {
-	
+public class InboxActivity extends FragmentActivity {
+	public static final String PREFS_NAME = "PrefsFile";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 
-	    setContentView(R.layout.hash_tag_content_fragment_layout);
+	    setContentView(R.layout.inbox_fragment_layout);
 	}
 	
-	public static class HashTagContentFragment extends Fragment {
-		private HashTagContentListAdapter adapter;
+	public static class InboxFragment extends Fragment {
+		private InboxAdapter adapter;
 		private PullToRefreshListView pairedListView;
 		private String hashTag;
 		
@@ -70,20 +74,37 @@ public class HashTagContentActivity extends FragmentActivity {
 	    public void onActivityCreated(Bundle savedInstanceSate) {
 	    	super.onActivityCreated(savedInstanceSate);
 	        
-	        Bundle b = this.getActivity().getIntent().getExtras();
-		    hashTag = b.getString("hash_tag");
+//	        Bundle b = this.getActivity().getIntent().getExtras();
+//		    hashTag = b.getString("hash_tag");
 	        
 	        if (this.adapter == null) {
-	    		this.adapter = new HashTagContentListAdapter();
-	    		new RefreshHashTagContentListTask().execute();
+	    		this.adapter = new InboxAdapter();
+	    		new RefreshInboxTask().execute();
 	    	}
 	    	this.pairedListView = (PullToRefreshListView) this.getActivity().findViewById(R.id.hash_tag_content_list);
+	    	
+	    	pairedListView.setOnItemClickListener(new OnItemClickListener() {
+				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+						long arg3) {
+					DirectMessage message = adapter.getItem(arg2-1);
+					Intent intent = new Intent();
+					intent.putExtra("recipient_id", message.getSenderId());
+					intent.putExtra("recipient_screen_name", message.getSenderScreenName());
+					intent.putExtra("message", message.getText());
+					
+					intent.setClassName("com.iSpraker.android", "com.iSpraker.android.app.SendMessageActivity");
+					startActivity(intent);
+				}
+			});
+	    	
 	    	pairedListView.setAdapter(adapter);
 	    	((PullToRefreshListView) pairedListView).setOnRefreshListener(new OnRefreshListener() {
 	            public void onRefresh() {
-	            	new RefreshHashTagContentListTask().execute();
+	            	new RefreshInboxTask().execute();
 	            }
 	        });
+	    	
+	    	
 	    }
 		
 	//	@Override
@@ -95,35 +116,35 @@ public class HashTagContentActivity extends FragmentActivity {
 		public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		   if (requestCode == COMPOSE_TWEET_SUCCESS) {
 		      if (resultCode == RESULT_OK) {
-		    	  new RefreshHashTagContentListTask().execute();
+		    	  new RefreshInboxTask().execute();
 		      }
 		   }
 		}
 		
-		@Override
-	    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-			super.onCreateOptionsMenu(menu, inflater);
-	    	menu.add("Compose")
-				.setIcon(R.drawable.ic_action_compose)
-				.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-					@Override
-					public boolean onMenuItemClick(MenuItem item) {
-						Intent intent = new Intent();
-						intent.setClassName("com.iSpraker.android", "com.iSpraker.android.app.ComposeActivity");
-						intent.putExtra("hash_tag", hashTag);
-					    startActivityForResult(intent, COMPOSE_TWEET_SUCCESS);
-						return true;
-					}
-			})
-			.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-	    }
+//		@Override
+//	    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//			super.onCreateOptionsMenu(menu, inflater);
+//	    	menu.add("Compose")
+//				.setIcon(R.drawable.ic_action_compose)
+//				.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+//					@Override
+//					public boolean onMenuItemClick(MenuItem item) {
+//						Intent intent = new Intent();
+//						intent.setClassName("com.iSpraker.android", "com.iSpraker.android.app.ComposeActivity");
+//						intent.putExtra("hash_tag", hashTag);
+//					    startActivityForResult(intent, COMPOSE_TWEET_SUCCESS);
+//						return true;
+//					}
+//			})
+//			.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+//	    }
 		
 		private class DownloadImageTask extends AsyncTask<Void, Void, Hashtable<Long, Bitmap>> {
 		     protected Hashtable<Long, Bitmap> doInBackground(Void... urls) {
 		    	 Hashtable<Long, Bitmap> profileImgs = new Hashtable<Long, Bitmap>();
-		    	 for(Tweet e : adapter.mData) {
-		    		 if(!e.getProfileImageUrl().equals("") && profileImages.get(e.getId()) == null) {
-		    			 Bitmap img = NetworkHelper.fetchImage(e.getProfileImageUrl());
+		    	 for(DirectMessage e : adapter.mData) {
+		    		 if(!e.getSender().getProfileImageURL().equals("") && profileImages.get(e.getId()) == null) {
+		    			 Bitmap img = NetworkHelper.fetchImage(e.getSender().getProfileImageURL().toString());
 		    			 if (img != null) {
 		    				 profileImgs.put(e.getId(), img);
 		    			 }
@@ -134,8 +155,8 @@ public class HashTagContentActivity extends FragmentActivity {
 		     }
 	
 		     protected void onPostExecute(Hashtable<Long, Bitmap> profileImgs) {
-		    	 for(Tweet e : adapter.mData) {
-		    		 if(!e.getProfileImageUrl().equals("") && profileImages.get(e.getId()) == null && profileImgs.get(e.getId()) != null) {
+		    	 for(DirectMessage e : adapter.mData) {
+		    		 if(!e.getSender().getProfileImageURL().equals("") && profileImages.get(e.getId()) == null && profileImgs.get(e.getId()) != null) {
 		    			 profileImages.put(e.getId(), profileImgs.get(e.getId()));
 		    		 }
 		    	 }
@@ -143,27 +164,32 @@ public class HashTagContentActivity extends FragmentActivity {
 		     }
 		}
 		
-		private class RefreshHashTagContentListTask extends AsyncTask<Void, Integer, List<Tweet>> {
-	        protected List<Tweet> doInBackground(Void... params) {
+		private class RefreshInboxTask extends AsyncTask<Void, Integer, ResponseList<DirectMessage>> {
+	        protected ResponseList<DirectMessage> doInBackground(Void... params) {
 	//        	String url = "http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/hash_tags.json"; //PeopleTabFragment.this.getResources().getString(R.string.api_users);
 	//        	String url = getResources().getString(R.string.api_hash_tags_local);
 	        	Twitter twitter = new TwitterFactory().getInstance();
-	            Query query = new Query(hashTag);
-	            QueryResult result = null;
+				SharedPreferences settings = getActivity().getSharedPreferences(PREFS_NAME, 0);
+				// refactor this
+				twitter.setOAuthConsumer("TCIaruKKUzfX2u8Xhg", "NAWrtBM7Vw8LZzeEkeyiLnEEY00fUjWYXmdX9tJkA");
+				twitter.setOAuthAccessToken(new AccessToken(settings.getString("twitter_access_token", null), settings.getString("twitter_access_token_secret", null)) );
+			    
+	        	ResponseList<DirectMessage> messages = null;
 				try {
-					result = twitter.search(query);
+					messages = twitter.getDirectMessages();
 				} catch (TwitterException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 	        	
-	        	return result.getTweets();
+	        	return messages;
+
 	        }
 	
-	        protected void onPostExecute(List<Tweet> tweets) {
-	        	adapter.mData = new ArrayList<Tweet>();
+	        protected void onPostExecute(ResponseList<DirectMessage> messages) {
+	        	adapter.mData = new ArrayList<DirectMessage>();
 	        	profileImages = new Hashtable<Long, Bitmap>();
-	        	for(Tweet e : tweets) {
+	        	for(DirectMessage e : messages) {
 	        		adapter.addItem(e);
 	        	}
 	        	adapter.notifyDataSetChanged();
@@ -173,24 +199,24 @@ public class HashTagContentActivity extends FragmentActivity {
 	        	if (lv != null) {
 	        		lv.onRefreshComplete();
 	        	}
-	        	super.onPostExecute(tweets);
+	        	super.onPostExecute(messages);
 	        }
 	    }
 		
 		/**
 	     * adapter for the list view
 	     */
-	    private class HashTagContentListAdapter extends BaseAdapter {
+	    private class InboxAdapter extends BaseAdapter {
 			 
-	        private List<Tweet> mData;
+	        private List<DirectMessage> mData;
 	        private LayoutInflater mInflater;
 	 
-	        public HashTagContentListAdapter() {
+	        public InboxAdapter() {
 	            mInflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	            mData = new ArrayList<Tweet>();
+	            mData = new ArrayList<DirectMessage>();
 	        }
 	 
-	        public void addItem(final Tweet tweet) {
+	        public void addItem(final DirectMessage tweet) {
 	            mData.add(tweet);
 	//            notifyDataSetChanged();
 	        }
@@ -199,7 +225,7 @@ public class HashTagContentActivity extends FragmentActivity {
 	            return mData.size();
 	        }
 	 
-	        public Tweet getItem(int position) {
+	        public DirectMessage getItem(int position) {
 	            return mData.get(position);
 	        }
 	 
@@ -222,11 +248,11 @@ public class HashTagContentActivity extends FragmentActivity {
 	            } else {
 	                holder = (ListViewHolder)convertView.getTag();
 	            }
-	            Tweet e = mData.get(position);
+	            DirectMessage e = mData.get(position);
 	            if (profileImages.get(e.getId()) != null) {
 	            	holder.hash_tag_content_profile.setImageBitmap(profileImages.get(e.getId()));
 	            }
-	            holder.hash_tag_content_name.setText("@"+e.getFromUser());
+	            holder.hash_tag_content_name.setText("@"+e.getSenderScreenName());
 	            holder.hash_tag_content_time.setText(new SimpleDateFormat("h:mm a").format(e.getCreatedAt()));
 	            holder.hash_tag_content_tweet.setText(e.getText());
 	            return convertView;

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iSpraker.android.R;
+import com.iSpraker.android.dos.HashTag;
 import com.iSpraker.android.dos.User;
 import com.iSpraker.android.utils.NetworkHelper;
 
@@ -69,6 +70,23 @@ public class PersonDetailActivity extends FragmentActivity {
 			
 		}
 		
+	}
+	
+	public void onSayHiClicked(View v) {
+		Intent intent = new Intent();
+		intent.putExtra("recipient_id", user.getUid());
+		intent.putExtra("recipient_screen_name", "");
+		intent.putExtra("message", "");
+		
+		intent.setClassName("com.iSpraker.android", "com.iSpraker.android.app.SendMessageActivity");
+		startActivity(intent);
+	}
+	
+	public void onDirectMessagesClicked(View v) {
+		Intent intent = new Intent();
+		
+		intent.setClassName("com.iSpraker.android", "com.iSpraker.android.app.InboxActivity");
+		startActivity(intent);
 	}
 	
 	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {

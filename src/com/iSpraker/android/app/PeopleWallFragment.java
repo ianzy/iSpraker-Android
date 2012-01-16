@@ -127,7 +127,9 @@ public class PeopleWallFragment extends Fragment implements OnScrollListener {
 	    	 for(User e : adapter.mData) {
 	    		 if(!e.getProfileImageURL().equals("") && e.getProfileImage() == null) {
 	    			 Bitmap img = NetworkHelper.fetchImage(e.getProfileImageURL());
-	    			 profileImgs.put(e.getUid(), img);
+	    			 if (img != null) {
+	    				 profileImgs.put(e.getUid(), img);
+	    			 }
 //		    			 if(img != null) {
 //		    				 e.setProfileImage(img);
 //		            	 }
@@ -139,7 +141,7 @@ public class PeopleWallFragment extends Fragment implements OnScrollListener {
 
 	     protected void onPostExecute(Hashtable<String, Bitmap> profileImgs) {
 	    	 for(User e : adapter.mData) {
-	    		 if(!e.getProfileImageURL().equals("") && e.getProfileImage() == null) {
+	    		 if(!e.getProfileImageURL().equals("") && e.getProfileImage() == null && profileImgs.get(e.getUid()) != null) {
 	    			 e.setProfileImage(profileImgs.get(e.getUid()));
 	    		 }
 	    	 }
@@ -153,7 +155,7 @@ public class PeopleWallFragment extends Fragment implements OnScrollListener {
 	private class RefreshPeopleListTask extends AsyncTask<Double, Integer, UsersResponse> {
        protected UsersResponse doInBackground(Double... location) {
 //       	String url = "http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/users.json"; //PeopleTabFragment.this.getResources().getString(R.string.api_users);
-       	String url = PeopleWallFragment.this.getResources().getString(R.string.api_users_local);
+       	String url = PeopleWallFragment.this.getResources().getString(R.string.api_users);
        	IUsersDAO userDAO = new JsonUsersDAO(url, PeopleWallFragment.this.getActivity());
        	return userDAO.getUsersDataByLocation(location[0], location[1]);
        }
@@ -176,7 +178,7 @@ public class PeopleWallFragment extends Fragment implements OnScrollListener {
 	private class UpdatePeopleListTask extends AsyncTask<Double, Integer, UsersResponse> {
        protected UsersResponse doInBackground(Double... location) {
 //       	String url = "http://ispraker.heroku.com//api/9b02756d6564a40dfa6436c3001a1441/users.json"; //PeopleTabFragment.this.getResources().getString(R.string.api_users);
-       	String url = PeopleWallFragment.this.getResources().getString(R.string.api_users_local);
+       	String url = PeopleWallFragment.this.getResources().getString(R.string.api_users);
        	IUsersDAO userDAO = new JsonUsersDAO(url, PeopleWallFragment.this.getActivity());
        	
        	return userDAO.getUsersDataByLocation(location[0], location[1], pagingInfo.getCurrentPage()+1);
@@ -250,7 +252,9 @@ public class PeopleWallFragment extends Fragment implements OnScrollListener {
             }
             User e = mData.get(position);
             holder.name.setText(e.getScreenName());
-            holder.profileImage.setImageBitmap(e.getProfileImage());
+            if (e.getProfileImage() != null ) {
+            	holder.profileImage.setImageBitmap(e.getProfileImage());
+            }
             return convertView;
         }
  

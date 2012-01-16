@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
-import android.widget.TextView;
 
 import com.iSpraker.android.R;
 import com.iSpraker.android.dos.Paging;

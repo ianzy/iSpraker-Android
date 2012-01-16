@@ -32,10 +32,15 @@ public class ComposeActivity extends FragmentActivity {
 		((Button)this.findViewById(R.id.tweet)).setEnabled(false);
 		String tweetContent = ((TextView)this.findViewById(R.id.componse_content)).getText().toString();
 		
+		if (tweetContent.trim().equals("")) {
+			Toast.makeText(this, "Please provide some content...", Toast.LENGTH_LONG).show();
+			return;
+		}
+		
 		Twitter twitter = new TwitterFactory().getInstance();
 		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 		// refactor this
-		twitter.setOAuthConsumer("AOMdfPY2WZ2vFNeOjVGQdw", "kBPBoZCRFOOktU8BHOt6isDDOCDgIGy64VbzrzaKo");
+		twitter.setOAuthConsumer("TCIaruKKUzfX2u8Xhg", "NAWrtBM7Vw8LZzeEkeyiLnEEY00fUjWYXmdX9tJkA");
 		twitter.setOAuthAccessToken(new AccessToken(settings.getString("twitter_access_token", null), settings.getString("twitter_access_token_secret", null)) );
 	    Status status;
 		try {
